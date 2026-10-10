@@ -1,0 +1,7 @@
+{
+  "model": "sonnet",
+  "total_tokens": 175658,
+  "duration_ms": 686440,
+  "total_duration_seconds": 686.4,
+  "tool_uses": 45
+}

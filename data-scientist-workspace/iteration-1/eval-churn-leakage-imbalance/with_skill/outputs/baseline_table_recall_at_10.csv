@@ -1,0 +1,5 @@
+name,mean,sd,diff_vs_best,se_corrected,n_pairs,keep
+simple_logreg,0.2899,0.039,0.0,0.0,5,True
+shallow_tree_d3,0.2219,0.023,-0.068,0.036,5,False
+business_rule,0.2191,0.0281,-0.0708,0.0306,5,False
+trivial_dummy,0.0975,0.0335,-0.1924,0.0246,5,False

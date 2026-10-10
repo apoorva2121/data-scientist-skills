@@ -1,0 +1,13 @@
+column,kind,score,missing_pct,missing_indicator_score,flags,recorded_when,available_at_prediction,verdict,evidence
+tax_assessed_value,numeric,0.9371,0.0,,,"public tax record, assessed before listing",yes,legit,top univariate score (0.937) but is a public pre-sale record; strong legitimate predictor of market price
+sqft,numeric,0.7222,0.54,0.0099,DERIVED_FROM_TARGET? (with price_per_sqft R2=1.000),"property record, fixed at construction/renovation, known before listing",yes,legit,flagged paired with price_per_sqft (R2=1.000) only because price_per_sqft is arithmetically built from it; sqft itself is a normal pre-listing attribute
+bedrooms,numeric,0.6357,0.0,,,"property record, known before listing",yes,legit,"plain property attribute, no timing concern"
+price_per_sqft,numeric,0.6238,0.0,,DERIVED_FROM_TARGET? (with sqft R2=1.000),computed from the realized sale price (price/sqft) after the sale closes,NO - post-sale only,derived - DROP,"problem_statement.md + column_audit.csv verdict: price_per_sqft = price/sqft (confirmed by direct arithmetic check, mean abs diff $4.7, R2=1.000 with sqft given price); only computable once the sale price is known"
+bathrooms,numeric,0.5454,0.0,,,"property record, known before listing",yes,legit,"plain property attribute, no timing concern"
+neighborhood,categorical,0.4813,0.0,,,"property record, known before listing",yes,legit,"plain property attribute, no timing concern"
+year_built,numeric,0.1515,0.54,0.0227,,"property record, known before listing",yes,legit,"plain property attribute, no timing concern"
+distance_to_center_km,numeric,0.1345,0.0,,,"property record, known before listing",yes,legit,"plain property attribute, no timing concern"
+condition,categorical,0.1066,0.0,,,"listing-time inspection/agent assessment, known before/at listing",yes,legit,assumed assessed at listing time (ASSUMED - ideally confirmed with listing-data owner)
+lot_size_sqft,numeric,0.0704,20.57,0.0002,,"property record, known before listing",yes,legit,"plain property attribute, no timing concern"
+garage,categorical,0.0377,1.42,0.0001,,"property record, known before listing",yes,legit,"plain property attribute, no timing concern"
+__row_order__,diagnostic,0.0113,0.0,,,"diagnostic column (row index), not a feature",n/a,diagnostic - n/a,"diagnostic-only column added by leak_screen.py, score near 0 (0.011) -> no row-order signal"

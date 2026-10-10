@@ -1,0 +1,218 @@
+{
+  "cv": {
+    "scheme": "StratifiedKFold",
+    "n_splits": 3,
+    "n_repeats": 1,
+    "groups": null,
+    "seed": 42,
+    "note": "3x3 RepeatedStratifiedKFold used only to measure noise floor; 3-fold single-repeat used for later screening to fit the time budget"
+  },
+  "primary_metric": "precision_at_10pct",
+  "screening_metric": "roc_auc (proxy during screening; PR-AUC and precision@10% confirmed at Stage 7-9)",
+  "noise_floor_sd": 0.00238,
+  "noise_floor_fold_sd": 0.01853,
+  "noise_floor_definition": "sd of the CV mean across repeats (repeat_sd) on ROC-AUC, simple logistic pipeline, train rows only",
+  "fixed_steps": [
+    "total_charges: -999 -> NaN (sentinel, stateless)",
+    "age: <=0 or >=120 -> NaN (impossible, stateless)",
+    "contract_type: case/whitespace canonicalized (stateless)",
+    "drop exact duplicate rows (150 removed, stateless)",
+    "drop churn_reason (non-null only when churned=1: written after outcome)",
+    "drop account_status_code (status 'C' near-perfectly = churned=1: written after outcome, i.e. cancellation status)"
+  ],
+  "stages": {
+    "missing_values": [
+      {
+        "name": "median_indicator",
+        "applies_to": [
+          "linear"
+        ],
+        "proxy_scores": {
+          "linear": [
+            0.6801,
+            0.0174
+          ]
+        }
+      },
+      {
+        "name": "native_nan",
+        "applies_to": [
+          "gbdt"
+        ],
+        "proxy_scores": {
+          "gbdt": [
+            0.6142,
+            0.0111
+          ]
+        }
+      },
+      {
+        "name": "median_indicator",
+        "applies_to": [
+          "gbdt"
+        ],
+        "proxy_scores": {
+          "gbdt": [
+            0.6164,
+            0.0145
+          ]
+        }
+      }
+    ],
+    "outliers": [
+      {
+        "name": "none",
+        "applies_to": [
+          "linear",
+          "gbdt"
+        ],
+        "proxy_scores": {
+          "linear": [
+            0.6801,
+            0.0174
+          ]
+        }
+      },
+      {
+        "name": "log1p_avg_daily_usage_mb",
+        "applies_to": [
+          "linear"
+        ],
+        "proxy_scores": {
+          "linear": [
+            0.683,
+            0.0146
+          ]
+        }
+      }
+    ],
+    "features": [
+      {
+        "name": "base_features_only",
+        "applies_to": [
+          "linear",
+          "gbdt"
+        ],
+        "proxy_scores": {
+          "linear": [
+            0.6801,
+            0.0174
+          ],
+          "gbdt": [
+            0.6164,
+            0.0145
+          ]
+        }
+      },
+      {
+        "name": "base_plus_engineered",
+        "applies_to": [
+          "linear",
+          "gbdt"
+        ],
+        "proxy_scores": {
+          "linear": [
+            0.6825,
+            0.0157
+          ],
+          "gbdt": [
+            0.6282,
+            0.0088
+          ]
+        }
+      }
+    ],
+    "models": [
+      {
+        "name": "logreg_C0.01",
+        "applies_to": [
+          "linear"
+        ],
+        "precision_at_10pct": [
+          0.2333,
+          0.0617
+        ],
+        "roc_auc": 0.6871
+      },
+      {
+        "name": "logreg_C1.0",
+        "applies_to": [
+          "linear"
+        ],
+        "precision_at_10pct": [
+          0.2154,
+          0.0335
+        ],
+        "roc_auc": 0.679
+      },
+      {
+        "name": "logreg_C0.1",
+        "applies_to": [
+          "linear"
+        ],
+        "precision_at_10pct": [
+          0.2103,
+          0.0387
+        ],
+        "roc_auc": 0.6837
+      },
+      {
+        "name": "xgboost_d3_lr0.05_n300",
+        "applies_to": [
+          "gbdt"
+        ],
+        "precision_at_10pct": [
+          0.1923,
+          0.0428
+        ],
+        "roc_auc": 0.6382
+      },
+      {
+        "name": "lightgbm_d3_lr0.1_n200_reg5.0",
+        "applies_to": [
+          "gbdt"
+        ],
+        "precision_at_10pct": [
+          0.1872,
+          0.0489
+        ],
+        "roc_auc": 0.6492
+      },
+      {
+        "name": "lightgbm_d3_lr0.05_n300_reg1.0",
+        "applies_to": [
+          "gbdt"
+        ],
+        "precision_at_10pct": [
+          0.1846,
+          0.0657
+        ],
+        "roc_auc": 0.6393
+      },
+      {
+        "name": "xgboost_d4_lr0.05_n300",
+        "applies_to": [
+          "gbdt"
+        ],
+        "precision_at_10pct": [
+          0.1615,
+          0.0538
+        ],
+        "roc_auc": 0.6257
+      },
+      {
+        "name": "lightgbm_d4_lr0.05_n300_reg1.0",
+        "applies_to": [
+          "gbdt"
+        ],
+        "precision_at_10pct": [
+          0.159,
+          0.0395
+        ],
+        "roc_auc": 0.6296
+      }
+    ]
+  },
+  "winner": "logreg_C0.01",
+  "runner_up": "logreg_C1.0"
+}

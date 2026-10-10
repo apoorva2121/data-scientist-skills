@@ -1,0 +1,25 @@
+{
+  "task": "regression, target=price",
+  "target_distribution": "log-normal (right-skewed); log-transform or a robust loss is appropriate",
+  "honest_noise_sd_log": 0.12,
+  "note_on_ceiling": "Irreducible noise is ~12% (log scale). MAPE far below ~9% or R2 near 1.0 means leakage.",
+  "leak_columns": [
+    "price_per_sqft"
+  ],
+  "strong_legit_feature": "tax_assessed_value (assessed before the sale from expected value with independent 10% error; keep). A good run asks when it was recorded relative to the sale.",
+  "group_key": "property_id (8% of properties appear twice; must not straddle train/test)",
+  "time_drift": "prices rise ~4.5% per year via sold_date; a time-aware split or a time feature is needed",
+  "true_missing": {
+    "lot_size_sqft": "20% MCAR"
+  },
+  "category_inconsistency": [
+    "garage (Yes/Y/yes/YES, No/N/no/blank)"
+  ],
+  "ordinal_feature": "condition (Poor < Fair < Good < Very Good < Excellent)",
+  "rare_categories": "neighborhood has 30 levels with a Zipf-like tail",
+  "impossible_values": {
+    "year_built": "1800 or 2090",
+    "sqft": "50 or 100000"
+  },
+  "business_constraint": "pricing tool needs MAE and prediction intervals for new listings"
+}

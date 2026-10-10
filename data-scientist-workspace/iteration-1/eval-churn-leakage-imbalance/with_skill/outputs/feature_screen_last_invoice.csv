@@ -1,0 +1,5 @@
+name,mean,sd,diff_vs_best,se_corrected,n_pairs,keep
+linear_without_lastinv,0.1896,0.0273,0.0,0.0,5,True
+linear_with_lastinv,0.184,0.0197,-0.0056,0.0062,5,True
+gbdt_without_lastinv,0.1417,0.0291,-0.0479,0.0281,5,False
+gbdt_with_lastinv,0.1394,0.0269,-0.0503,0.0254,5,False

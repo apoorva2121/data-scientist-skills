@@ -1,0 +1,19 @@
+{
+  "scheme": "stratified",
+  "rejected_schemes": {
+    "group": "customer_id unique per row after dedup - no entity repeats to group on",
+    "time": "ASSUMED cross-sectional scoring snapshot, not explicit future-period deployment; no target-rate drift evidence checked given time budget (flagged as open risk)"
+  },
+  "sizes": {
+    "train": 3900,
+    "holdout": 900,
+    "test": 1200
+  },
+  "target_rate": {
+    "train": 0.08666666666666667,
+    "holdout": 0.08666666666666667,
+    "test": 0.08666666666666667
+  },
+  "test_ids_sha256": "e5d6e5634db7e8dfd60d1688def5e586408052ddc4c2ed82bcde7a0b13454799",
+  "seed": 42
+}

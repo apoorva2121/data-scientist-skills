@@ -1,0 +1,26 @@
+{
+  "run": "without_skill (sonnet)",
+  "graded_by": "inline, from outputs/*.py and outputs/report.md",
+  "expectations": [
+    {"text": "leak_column_excluded", "passed": true, "evidence": "price_per_sqft dropped as price/sqft target leakage"},
+    {"text": "group_split_property", "passed": true, "evidence": "report: all CV folds and train/calibration/test splits grouped by property_id (GroupKFold/GroupShuffleSplit)"},
+    {"text": "time_drift_handled", "passed": true, "evidence": "data_prep.py adds sale_year, sale_month; report caveat: no explicit time-based holdout. Handled by time feature only; extrapolation to future listings is not tested"},
+    {"text": "target_skew_handled", "passed": true, "evidence": "models fit on log1p(price); quantile predictions back-transformed (quantiles survive monotone transforms, so exp of q50 is the price median)"},
+    {"text": "garage_condition_cleaned", "passed": false, "evidence": "garage normalised to Yes/No/Unknown, but condition is in CATEGORICAL_FEATURES and one-hot encoded, not treated as ordered"},
+    {"text": "impossible_values_handled", "passed": false, "evidence": "sqft >= 50000 and year_built 1800/2090 handled; the planted sqft = 50 rows are not detected (sqft_outlier_flag only checks >= 50000)"},
+    {"text": "imputation_in_fold", "passed": true, "evidence": "lot_size_sqft imputed in the pipeline with a missing flag"},
+    {"text": "intervals_with_coverage", "passed": true, "evidence": "CQR-conformalised quantile regression; test coverage 91.6% (90% nominal), 79.5% (80%), 45.6% (50%), also checked by price tercile"},
+    {"text": "mae_vs_baseline", "passed": false, "evidence": "no trivial baseline (median price or neighbourhood mean) reported; linear regression is compared only in CV, not on the held-out set"},
+    {"text": "candidates_compared_with_spread", "passed": false, "evidence": "five families compared on mean CV RMSE only; 'XGBoost narrowly best (17,666 vs 17,930 / 18,029)' stated with no fold spread or noise floor"},
+    {"text": "tax_timing_questioned", "passed": true, "evidence": "caveat: relies on tax_assessed_value as a public pre-sale feature"},
+    {"text": "decision_log_reasoning", "passed": false, "evidence": "reasoning given for quantile regression and grouping, but no record of alternatives considered and skipped for imputation, outliers, encoding or features"},
+    {"text": "no_leak_signature", "passed": true, "evidence": "test R2 0.880, MAPE 11.9%"}
+  ],
+  "summary": {"passed": 8, "total": 13, "pass_rate": 0.615},
+  "other_observations": [
+    "Finished in 15 min, inside the 20 min budget.",
+    "Model choice 'XGBoost narrowly best' rests on differences of about 1.5% RMSE with no spread; likely within noise.",
+    "No hyperparameter search (stated as a time-budget caveat).",
+    "Random grouped split, not time-based: the 4.5%/year drift is modelled via sale_year but future extrapolation is not validated."
+  ]
+}

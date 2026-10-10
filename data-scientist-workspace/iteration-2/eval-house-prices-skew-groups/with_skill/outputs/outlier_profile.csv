@@ -1,0 +1,7 @@
+column,skew,iqr15,iqr3,mad35,min,p01,p99,max,flagged_target_rate,overall_target_rate,lift,max_period_share,hint
+sqft,1.31,99,12,38,486.0,828.02,4180.64,7824.0,252315.7895,109067.4617,2.31,0.34,signal: extremes carry target information; keep (maybe add a flag feature)
+year_built,0.04,0,0,0,1900.0,1901.0,2022.66,2023.0,,109043.4753,,,no extremes
+lot_size_sqft,1.79,77,17,47,940.0,1960.29,18981.99,33020.0,124787.234,108984.5563,1.14,0.4,heavy tail: transform (log / Yeo-Johnson) or winsorize for linear models
+distance_to_center_km,1.79,127,19,99,0.7,2.0,30.1,52.9,94289.899,109106.8113,0.86,0.28,heavy tail: transform (log / Yeo-Johnson) or winsorize for linear models
+tax_assessed_value,1.54,85,13,59,21400.0,30000.0,235300.0,441900.0,283574.5763,109106.8113,2.6,0.39,signal: extremes carry target information; keep (maybe add a flag feature)
+price [target],1.66,89,15,53,24900.0,36050.0,272850.0,588900.0,304966.0377,109106.8113,2.8,0.42,TARGET extremes: robust loss or log target; never drop from test

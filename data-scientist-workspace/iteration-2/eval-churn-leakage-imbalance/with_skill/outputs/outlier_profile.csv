@@ -1,0 +1,8 @@
+column,frac_beyond_1.5IQR,skew,target_lift_in_extremes,verdict
+tenure_months,0.0,0.016,,no material outlier concern
+monthly_charges,0.0015,0.048,1.923,"signal - keep, no removal"
+total_charges,0.0091,0.755,1.803,"signal - keep, no removal"
+support_calls_90d,0.0018,0.919,1.648,"signal - keep, no removal"
+avg_daily_usage_mb,0.0482,19.77,1.166,genuine tail - transform candidate (linear only)
+age,0.0,0.024,,no material outlier concern
+last_invoice_amount,0.0037,0.156,2.885,"signal - keep, no removal"

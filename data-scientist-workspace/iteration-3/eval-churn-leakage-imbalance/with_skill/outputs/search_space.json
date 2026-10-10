@@ -1,0 +1,91 @@
+{
+  "cv": {
+    "scheme": "StratifiedKFold(from split)",
+    "n_splits": 5,
+    "n_repeats": 1,
+    "groups": null,
+    "seed": 42
+  },
+  "primary_metric": "precision@0.10",
+  "noise_floor_sd": 0.0133,
+  "noise_floor_definition": "sd of the CV mean (repeat_sd) across 3 repeats of RepeatedStratifiedKFold(5), reference linear pipeline, precision@10% units",
+  "fixed_steps": [
+    "drop 150 exact duplicate rows",
+    "contract_type spelling normalized to 3 levels",
+    "total_charges: -999 -> NaN",
+    "age: >120 -> NaN",
+    "DROP churn_reason (leak, score 1.00)",
+    "DROP account_status_code (leak, score 0.99)"
+  ],
+  "stages": {
+    "missing_values": [
+      {
+        "name": "median_indicator",
+        "applies_to": [
+          "linear",
+          "gbdt"
+        ]
+      },
+      {
+        "name": "native_nan",
+        "applies_to": [
+          "gbdt"
+        ]
+      }
+    ],
+    "outliers": [
+      {
+        "name": "none",
+        "applies_to": [
+          "linear",
+          "gbdt"
+        ]
+      },
+      {
+        "name": "winsorize_p01_p99",
+        "applies_to": [
+          "linear",
+          "gbdt"
+        ]
+      }
+    ],
+    "encoding": [
+      {
+        "name": "onehot",
+        "applies_to": [
+          "linear",
+          "gbdt"
+        ]
+      }
+    ],
+    "models": [
+      {
+        "name": "linear",
+        "applies_to": [
+          "linear"
+        ],
+        "proxy_mean": 0.2077,
+        "proxy_sd": 0.0332,
+        "keep": true
+      },
+      {
+        "name": "catboost",
+        "applies_to": [
+          "gbdt"
+        ],
+        "proxy_mean": 0.1679,
+        "proxy_sd": 0.0322,
+        "keep": false
+      },
+      {
+        "name": "lightgbm",
+        "applies_to": [
+          "gbdt"
+        ],
+        "proxy_mean": 0.1564,
+        "proxy_sd": 0.0278,
+        "keep": false
+      }
+    ]
+  }
+}

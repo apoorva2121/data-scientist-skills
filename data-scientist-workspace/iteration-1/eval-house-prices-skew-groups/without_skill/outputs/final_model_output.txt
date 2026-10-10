@@ -1,0 +1,6 @@
+Conformal margins carried into production model: {'90': 1103.91796875, '80': 857.7421875, '50': 134.78125}
+Saved final_model.joblib
+Example new-listing scoring (illustrative, not a real property):
+{'sqft': 1850, 'bedrooms': 3, 'bathrooms': 2, 'year_built': 1998, 'lot_size_sqft': 6200, 'distance_to_center_km': 6.5, 'tax_assessed_value': 105000, 'house_age': 28, 'sale_year': 2026, 'sale_month': 6, 'sqft_outlier_flag': 0, 'year_built_outlier_flag': 0, 'lot_size_missing': 0, 'garage_missing': 0, 'neighborhood': 'N02', 'condition': 'Good', 'garage_clean': 'Yes'}
+Point estimate (median): $136,738
+80% interval (conformal-calibrated): $109,062 - $160,961

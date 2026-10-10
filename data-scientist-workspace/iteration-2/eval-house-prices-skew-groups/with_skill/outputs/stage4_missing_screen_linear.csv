@@ -1,0 +1,3 @@
+name,mean,sd,diff_vs_best,se_corrected,n_pairs,keep,within_noise_floor
+median,-13612.2373,647.492,0.0,0.0,5,True,True
+median_indicator,-13640.3606,662.7879,-28.1233,36.0279,5,True,True

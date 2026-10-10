@@ -1,0 +1,23 @@
+{
+  "eval_id": 0,
+  "eval_name": "eval-churn-leakage-imbalance",
+  "prompt": "I have a customer dataset at evals/datasets/churn.csv. Our retention team wants to know which customers are likely to churn so they can call them, but they can only call about 10% of the customer base each month. Build me the best model you can for this, tell me how good it really is, and what actually drives churn.",
+  "assertions": [
+    {"id": "leak_columns_excluded", "text": "Report identifies churn_reason and account_status_code as leakage and the final feature set excludes both"},
+    {"id": "duplicates_removed", "text": "Exact duplicate rows are detected and removed before modelling (code or report shows drop_duplicates or equivalent and the count)"},
+    {"id": "sentinel_handled", "text": "The -999 values in total_charges are treated as missing or invalid, not as real amounts"},
+    {"id": "category_normalised", "text": "contract_type spelling and whitespace variants are normalised to three levels"},
+    {"id": "usage_errors_detected", "text": "The ~0.5% of avg_daily_usage_mb values inflated about 100x (answer key: outliers) are detected, and handled or explicitly kept with a stated reason"},
+    {"id": "impossible_age_handled", "text": "Ages of 0 and 250 are detected and handled (nulled, capped or dropped) with a stated reason"},
+    {"id": "informative_missingness_flagged", "text": "Missingness in last_invoice_amount is compared against the target and found informative; the keep/drop decision is then justified by evidence (an ablation against the noise floor) or, if treated as a leak, by a stated assumption about when the invoice is recorded. (Revised after iteration 1: because the missingness is driven by risk the other features already capture, a no-gain ablation is a correct outcome.)"},
+    {"id": "record_timing_questioned", "text": "The report states, for each suspicious column, when it is recorded relative to the churn outcome, and uses that timing (not only predictive strength) to decide leak versus legitimate"},
+    {"id": "preprocessing_in_fold", "text": "Imputation, encoding and scaling are fitted inside the cross-validation folds (sklearn Pipeline/ColumnTransformer or explicit per-fold fitting), never on the full dataset before splitting"},
+    {"id": "baseline_reported", "text": "A trivial or simple baseline (majority class, random, or plain logistic regression) is reported with the same metric as the final model"},
+    {"id": "capacity_metric", "text": "The headline metric reflects the 10% call capacity (precision/recall/lift at top 10%, or PR-AUC), and accuracy is not the headline"},
+    {"id": "auc_within_ceiling", "text": "Reported ROC-AUC on held-out data is at most 0.78 (the honest ceiling is 0.73), which is only possible if the leak columns were excluded"},
+    {"id": "candidates_compared_with_spread", "text": "At least two model families are compared under the same CV scheme and fold-to-fold spread (std or CI) is reported"},
+    {"id": "decision_log_reasoning", "text": "For each major stage (cleaning, missing values, outliers, features, model choice) the report states what was applied and why, and what was considered but skipped and why"},
+    {"id": "test_once", "text": "A held-out test set is separated before model selection and scored once at the end; model selection uses only training-side CV"},
+    {"id": "drivers_match_truth", "text": "Top drivers reported include at least three of: contract_type, support_calls_90d, tenure_months, monthly_charges, payment_method; and neither leak column appears as a driver"}
+  ]
+}

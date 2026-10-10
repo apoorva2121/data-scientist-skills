@@ -1,0 +1,27 @@
+{
+  "run": "with_skill iteration-2 (sonnet)",
+  "graded_by": "inline, from outputs/decision_log.md and the agent summary",
+  "expectations": [
+    {"text": "leak_column_excluded", "passed": true, "evidence": "Stage 3: price_per_sqft flagged DERIVED_FROM_TARGET with sqft (R2 1.000), confirmed arithmetically, dropped"},
+    {"text": "group_split_property", "passed": true, "evidence": "group_time split on property_id; 72 train rows whose property recurs in holdout/test dropped under a stated new-listing policy"},
+    {"text": "time_drift_handled", "passed": true, "evidence": "chronological test and holdout from the most recent periods; sold_year/sold_month features; expanding-window CV"},
+    {"text": "target_skew_handled", "passed": true, "evidence": "Ridge on log(price); MAE and intervals reported in dollars"},
+    {"text": "garage_condition_cleaned", "passed": true, "evidence": "Stage 1: garage spellings fixed in clean_raw; condition marked ordered categorical (final pipeline one-hot encodes it, which a linear model can use for any ordering)"},
+    {"text": "impossible_values_handled", "passed": true, "evidence": "Stage 1: sqft in {50, 100000} -> NaN (21 rows), year_built in {1800, 2090} -> NaN (22 rows), lot_size 9999 -> NaN"},
+    {"text": "imputation_in_fold", "passed": true, "evidence": "median / most-frequent imputation inside the pipeline"},
+    {"text": "intervals_with_coverage", "passed": true, "evidence": "split-conformal on the holdout with log-scale nonconformity; test coverage 88.7% vs 90% target, below/above split 8.0% / 3.2% reported"},
+    {"text": "mae_vs_baseline", "passed": true, "evidence": "test MAE $13,650 vs neighbourhood $/sqft rule $20,158 and median baseline $42,385"},
+    {"text": "candidates_compared_with_spread", "passed": true, "evidence": "Stage 8: Ridge and LightGBM tied within 1 SE on CV; Ridge picked by the 1-SE rule and confirmed better on the holdout"},
+    {"text": "tax_timing_questioned", "passed": true, "evidence": "Stage 3: tax_assessed_value kept as a public pre-sale assessment; condition's timing written as an ASSUMED open risk too"},
+    {"text": "decision_log_reasoning", "passed": true, "evidence": "11 stage blocks with considered / applied / skipped reasons; every budget cut logged"},
+    {"text": "no_leak_signature", "passed": true, "evidence": "test MAPE 12.1%"}
+  ],
+  "summary": {"passed": 13, "total": 13, "pass_rate": 1.0},
+  "other_observations": [
+    "25.0 min (1500 s) and 254k tokens vs 15 min and 132k without the skill. The run believed it had gone well over budget; it was exactly on budget (launched before the clock fix).",
+    "Test MAE $13,650 on a chronological test set vs the no-skill run's $12,642 on a random grouped split: not comparable. The time-based number is the honest estimate for future listings under 4.5%/year drift.",
+    "CatBoost with cat_features could not be screened: sklearn clone() raises (reported by the run; confirmed separately).",
+    "make_split.py reports group overlap but cannot drop overlapping entities; done by hand here.",
+    "Saved with skops and reloaded; raw-row, determinism and directional sanity checks passed."
+  ]
+}

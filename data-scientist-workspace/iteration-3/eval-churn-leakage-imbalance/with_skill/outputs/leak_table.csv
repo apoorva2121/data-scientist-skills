@@ -1,0 +1,14 @@
+column,score,rank,recorded_when,available_at_prediction,verdict,evidence
+churn_reason,1.0000,1,"only populated when churned=1 (91.33% missing overall, 0% missing for churned=1); a churn reason can only be logged after the customer has churned",no,leak,"leak_screen.py: NEAR_PERFECT | DOMINANT | INFORMATIVE_MISSINGNESS; manual crosstab: 5618/5618 non-churned rows have NaN, 0/532 churned rows have NaN"
+account_status_code,0.9949,2,"status code 'C' co-occurs with churned=1 in 527/566 rows (93%) and with churned=0 in only 1/5038 rows; this is an account-status field almost certainly updated to a cancelled state at or after the churn event, not a pre-churn attribute",no,leak,"leak_screen.py: NEAR_PERFECT | DOMINANT; manual crosstab of account_status_code x churned"
+last_invoice_amount,0.5805,3,"ASSUMED to be the customer's most recent regular invoice amount, known before churn; mean value tracks monthly_charges closely in both churned (76.0 vs 75.3) and non-churned (69.3 vs 69.9) groups, i.e. no sign of an inflated final/termination bill that would indicate a post-churn value",yes (assumed),legit - keep with missing indicator,"leak_screen.py: INFORMATIVE_MISSINGNESS (missing 18.0% overall, more often missing for churned=1: 30.5% vs 16.4%); score 0.58 is only mildly above the 0.5 baseline, consistent with a legitimate but modest predictor, not a near-perfect leak"
+tenure_months,0.6056,4,available at signup / updated monthly before prediction,yes,legit - keep,leak_screen.py score 0.61 modest signal consistent with known churn driver
+contract_type,0.6052,5,set at signup/renewal,yes,legit - keep,leak_screen.py score 0.61
+support_calls_90d,0.6002,6,rolling 90-day count as of snapshot,yes,legit - keep,leak_screen.py score 0.60
+total_charges,0.5576,7,cumulative billing to date,yes,legit - keep,"leak_screen.py score 0.56; 9.95% missing after -999 sentinel cleaning, INFORMATIVE_MISSINGNESS not flagged but noted for Stage 4"
+monthly_charges,0.5741,-,current plan price,yes,legit - keep,leak_screen.py score 0.57
+signup_date,0.5206,-,known at signup,yes,legit - keep (low marginal value; redundant with tenure_months, not used as a separate model feature),leak_screen.py score 0.52
+region,0.5201,-,static attribute,yes,legit - keep,leak_screen.py score 0.52
+age,0.5085,-,static attribute,yes,legit - keep,leak_screen.py score 0.51
+payment_method,0.5071,-,set at signup,yes,legit - keep,leak_screen.py score 0.51
+avg_daily_usage_mb,0.5048,-,rolling usage metric as of snapshot,yes,legit - keep (heavy right tail, see outliers stage),leak_screen.py score 0.50

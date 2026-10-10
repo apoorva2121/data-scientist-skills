@@ -1,0 +1,8 @@
+column,inferred_type,n_missing_raw,pct_missing_raw,n_unique,pct_unique,top_values,flags,min,max,p01,median,p99,skew
+store_id,categorical,0,0.0,20,0.96,S19=105; S18=105; S17=105,,,,,,,
+week_start,datetime,0,0.0,104,5.0,2024-07-01=21; 2024-04-01=21; 2024-11-04=21,,2023-01-02,2024-12-23,,,,
+promo,numeric,0,0.0,2,0.1,0=1772; 1=309,,0,1,0.0,0.0,1.0,1.98
+holiday_week,numeric,0,0.0,2,0.1,0=1839; 1=242,,0,1,0.0,0.0,1.0,2.4
+avg_temp_c,numeric,0,0.0,353,16.96,4.5=17; 25.0=15; 7.4=14,SENTINEL?-1x2 | RARE_NEGATIVES:54,-4.9,35.3,-1.52,14.9,31.3,-0.0
+sales,numeric,0,0.0,1944,93.42,0.0=63; -1.0=5; 12626.0=2,"SENTINEL?-1x5,9999x1 | RARE_NEGATIVES:5",-1.0,57658.0,0.0,18788.0,48517.39999999991,0.49
+inventory_end,numeric,0,0.0,2024,97.26,11274.0=3; 11986.0=3; 15285.0=2,,1840.0,67878.0,6922.8,21767.0,64059.59999999999,0.93

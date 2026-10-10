@@ -1,0 +1,17 @@
+rows: 4320 features: 17
+NaN counts after cleaning:
+ sqft              23
+year_built        22
+age_at_sale       22
+lot_size_sqft    878
+garage_bin        56
+tax_per_sqft      23
+dtype: int64
+
+================ 5-fold GroupKFold by property_id (primary) ================
+baseline_median      rmse_log=0.4520 mae_log=0.3640 | MAE=$39,509 RMSE=$55,135 MAPE=38.04% MdAPE=30.91% within10%=17.3% R2=-0.052 | fold rmse_log 0.4517+/-0.0123  (1.2s)
+baseline_tax_ratio   rmse_log=0.1549 mae_log=0.1213 | MAE=$13,307 RMSE=$18,423 MAPE=11.96% MdAPE=10.06% within10%=49.7% R2=0.883 | fold rmse_log 0.1549+/-0.0024  (1.2s)
+ridge_onehot         rmse_log=0.1013 mae_log=0.0798 | MAE=$8,900 RMSE=$12,788 MAPE=7.99% MdAPE=6.52% within10%=68.6% R2=0.943 | fold rmse_log 0.1013+/-0.0018  (1.5s)
+random_forest        rmse_log=0.1323 mae_log=0.1040 | MAE=$11,581 RMSE=$16,846 MAPE=10.36% MdAPE=8.61% within10%=56.5% R2=0.902 | fold rmse_log 0.1323+/-0.0021  (27.5s)
+hist_gbr             rmse_log=0.1094 mae_log=0.0862 | MAE=$9,617 RMSE=$14,136 MAPE=8.62% MdAPE=7.06% within10%=65.5% R2=0.931 | fold rmse_log 0.1094+/-0.0032  (16.0s)
+lightgbm             rmse_log=0.1069 mae_log=0.0846 | MAE=$9,478 RMSE=$13,891 MAPE=8.46% MdAPE=7.03% within10%=65.9% R2=0.933 | fold rmse_log 0.1069+/-0.0029  (19.9s)

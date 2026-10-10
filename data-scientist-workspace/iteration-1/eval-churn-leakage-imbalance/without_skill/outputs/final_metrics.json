@@ -1,0 +1,25 @@
+{
+  "final_model_family": "logistic_regression",
+  "final_model_params": {
+    "C": 0.02382491316318909,
+    "penalty": "l2"
+  },
+  "n_train": 4800,
+  "n_test": 1200,
+  "test_churn_rate": 0.08666666666666667,
+  "test_roc_auc": 0.7200396546883774,
+  "test_pr_auc": 0.2168562747822319,
+  "test_brier_score": 0.22536738664490097,
+  "k_frac": 0.1,
+  "k_customers_in_test": 120,
+  "test_precision_at_10pct": 0.25833333333333336,
+  "test_recall_at_10pct_capture_rate": 0.2980769230769231,
+  "test_lift_at_10pct": 2.980769230769231,
+  "score_threshold_for_top_10pct": 0.6927953569159083,
+  "confusion_matrix_at_top10pct_threshold": {
+    "tn": 1007,
+    "fp": 89,
+    "fn": 73,
+    "tp": 31
+  }
+}

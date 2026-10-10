@@ -1,0 +1,27 @@
+{
+  "skill_name": "data-scientist",
+  "notes": "Each eval uses a synthetic dataset from evals/make_datasets.py with planted defects. The answer key in evals/answer_keys/ is for grading only and must never be given to the agent under test.",
+  "evals": [
+    {
+      "id": 0,
+      "name": "eval-churn-leakage-imbalance",
+      "prompt": "I have a customer dataset at <DATASETS>/churn.csv. Our retention team wants to know which customers are likely to churn so they can call them, but they can only call about 10% of the customer base each month. Build me the best model you can for this, tell me how good it really is, and what actually drives churn.",
+      "expected_output": "Code plus report.md. Leak columns churn_reason and account_status_code identified and excluded with reasoning; duplicates removed; sentinel -999 treated as missing; contract_type spellings normalised; impossible ages handled; informative missingness in last_invoice_amount flagged; stratified CV with all preprocessing inside the pipeline; trivial and simple baselines reported; a metric suited to the 10% call capacity (precision/recall at top 10%, PR-AUC), not accuracy; threshold chosen from the capacity constraint; reported ROC-AUC not materially above the honest ceiling; 2-3 candidate methods per stage carried into model comparison with noise-floor-aware selection; decision log with applied/skipped reasoning; test set scored once.",
+      "files": ["datasets/churn.csv"]
+    },
+    {
+      "id": 1,
+      "name": "eval-house-prices-skew-groups",
+      "prompt": "Here's a file of past house sales: <DATASETS>/house_prices.csv. We're building a pricing tool for new listings and need a model that estimates the sale price, plus some idea of how far off it might be for each estimate. Find the best approach and explain your choices.",
+      "expected_output": "Code plus report.md. Leak column price_per_sqft identified and excluded; repeat sales grouped by property_id so they do not straddle train/test; time drift via sold_date recognised (time-aware split or time feature); skewed target handled (log target or robust loss) with correct back-transform; garage codings normalised; condition treated as ordinal; impossible year_built and sqft handled with reasoning; lot_size MCAR imputation inside the pipeline; MAE and prediction intervals (quantile or conformal) with measured coverage; baselines reported; candidates compared under the same CV with noise floor; decision log with applied/skipped reasoning.",
+      "files": ["datasets/house_prices.csv"]
+    },
+    {
+      "id": 2,
+      "name": "eval-store-sales-forecast",
+      "prompt": "<DATASETS>/store_sales.csv has weekly sales for 20 stores for about 2 years. Inventory planning needs an 8-week-ahead forecast per store. Build the best forecasting approach you can and tell me how accurate to expect it to be.",
+      "expected_output": "Code plus forecast.csv plus report.md. Leak column inventory_end excluded; sentinel -1 sales treated as missing; duplicate (store, week) rows removed; S03 gaps reindexed; S07 level shift and S19 intermittent series noted and handled; rolling-origin backtest with 8-week horizon, no random K-fold; seasonal naive baseline reported; candidates (e.g. seasonal naive, ETS/ARIMA if available, LightGBM on lag features with promo/holiday as known-future covariates) compared per horizon with MASE or similar; accuracy stated per store or overall with caveats; decision log with applied/skipped reasoning.",
+      "files": ["datasets/store_sales.csv"]
+    }
+  ]
+}

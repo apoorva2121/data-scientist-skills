@@ -1,0 +1,5 @@
+column,pct_missing,predictable_from_obs,target_signal,co_missing_with,trend_by_period,hint
+lot_size_sqft,20.57,0.517,0.0,,0.20 -> 0.20,MCAR-like: simple imputation adequate
+garage,1.42,0.583,0.0,,0.01 -> 0.01,MCAR-like: simple imputation adequate
+sqft,0.54,,0.01,,0.01 -> 0.01,MCAR-like: simple imputation adequate
+year_built,0.54,,0.023,,0.01 -> 0.00,MCAR-like: simple imputation adequate

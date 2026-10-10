@@ -1,0 +1,14 @@
+feature,coef
+cat__contract_type_month-to-month,0.6473438334029435
+cat__contract_type_one year,-0.3946927017623564
+num__tenure_months,-0.39250763505605374
+num__support_calls_90d,0.3254654712344533
+cat__payment_method_Electronic check,0.2565243044605032
+cat__contract_type_two year,-0.2532001439223051
+num__monthly_charges,0.21417368967148692
+num__avg_daily_usage_mb,-0.11231560858563389
+cat__payment_method_Bank transfer,-0.1043264562737312
+cat__payment_method_Mailed check,-0.09019786087193875
+cat__payment_method_Credit card,-0.06254899959655226
+num__age,-0.043412283279371716
+num__total_charges,0.028470686849940592

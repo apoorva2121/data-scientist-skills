@@ -1,0 +1,32 @@
+{
+  "run": "with_skill (sonnet)",
+  "graded_by": "inline, from outputs/decision_log.md, cleaning_log.md, report.md and the agent's summary",
+  "validity_warning": "CONTAMINATED. Iteration-1 skills contained worked examples taken from this evaluation set (templates.md listed churn_reason and account_status_code as dropped leak columns; ds-evaluation quoted the honest ceiling 0.73 and ROC-AUC 0.722; several skills said logistic regression beat boosting on churn). The run noticed and used them as predictions. Leak detection and model-choice results from this run are not independent evidence. Rerun after decontamination (iteration 2).",
+  "expectations": [
+    {"text": "leak_columns_excluded", "passed": true, "evidence": "Stage 3 leak table; leak_screen.py scores 1.00 and 0.995. Contaminated: the template example named both columns"},
+    {"text": "duplicates_removed", "passed": true, "evidence": "cleaning_log: 150 exact duplicates removed, class rate among removed rows checked (0.080 vs 0.0865)"},
+    {"text": "sentinel_handled", "passed": true, "evidence": "cleaning_log: total_charges -999 -> NaN, 360 values"},
+    {"text": "category_normalised", "passed": true, "evidence": "cleaning_log: 12 spellings -> 3 levels, map printed"},
+    {"text": "usage_errors_detected", "passed": true, "evidence": "Stage 5: 15 rows > 10x p99 detected; explicitly kept as ambiguous without a data dictionary and flagged for slice review. Passes the wording, but the ground truth is entry errors and the skill's own hint said so; the run deferred instead of screening a null-them candidate"},
+    {"text": "impossible_age_handled", "passed": true, "evidence": "cleaning_log: age {0, 250} -> NaN, 60 values, as impossible values"},
+    {"text": "informative_missingness_flagged", "passed": true, "evidence": "Stage 4: missing_profile shows target_signal 0.568 (informative) and predictable_from_obs 0.68; indicator carried forward; dropped at Stage 6 on ablation (0.1896 without vs 0.1840 with). Note: the ablation was judged against an inflated noise floor (per-fold SD 0.042)"},
+    {"text": "record_timing_questioned", "passed": true, "evidence": "Stage 3 leak table with recorded_when per suspect; last_invoice timing listed as an open risk"},
+    {"text": "preprocessing_in_fold", "passed": true, "evidence": "all screening through pipelines on Stage 2 folds (screen.py); imputers and encoders inside pipelines"},
+    {"text": "baseline_reported", "passed": true, "evidence": "Stage 7 baseline tables: trivial, business rule, shallow tree, logistic, for PR-AUC and precision/recall at 10%"},
+    {"text": "capacity_metric", "passed": true, "evidence": "precision@10% and recall@10% with bootstrap CIs are headline metrics"},
+    {"text": "auc_within_ceiling", "passed": true, "evidence": "test ROC-AUC 0.716 (0.666-0.767)"},
+    {"text": "candidates_compared_with_spread", "passed": true, "evidence": "family screen and joint-search finalists with mean +/- sd and paired corrected SE"},
+    {"text": "decision_log_reasoning", "passed": true, "evidence": "decision_log.md: 10 stage blocks, each with carried-forward and skipped items and reasons"},
+    {"text": "test_once", "passed": true, "evidence": "train/holdout/test carved at Stage 2; holdout 0.209 vs CV 0.217; test scored once at Stage 9"},
+    {"text": "drivers_match_truth", "passed": true, "evidence": "contract type, support calls, tenure; no leak columns"}
+  ],
+  "summary": {"passed": 16, "total": 16, "pass_rate": 1.0},
+  "other_observations": [
+    "Predictive quality is the same as without the skill: test ROC-AUC 0.716 vs 0.720; precision@10% 22.5% vs 25.8%, CIs overlapping widely. The skill did not improve the model on this dataset.",
+    "Cost: 54 min and 330k tokens vs 30 min and 187k without the skill; both over the 20 min budget.",
+    "Real production win: the Stage 9 raw-row sanity test caught that the fitted pipeline did not re-apply Stage 1 stateless cleaning; fixed by adding a RawRowCleaner step before saving (skops). The no-skill run saved a joblib pipeline that expects pre-cleaned input.",
+    "Honesty wins: reported that the Stage 0 success threshold was not met and that the edge over a free business rule is 'probably better, not decisively'.",
+    "noise_floor_sd was set to the per-fold SD (0.042), about 2.2x the SD of a 5-fold mean; this made every finalist 'keep=True' and weakened several decisions. Skill ambiguity, not agent error.",
+    "Recommended TabPFN/TabICL were not installed; the skill gave no instruction for that case."
+  ]
+}

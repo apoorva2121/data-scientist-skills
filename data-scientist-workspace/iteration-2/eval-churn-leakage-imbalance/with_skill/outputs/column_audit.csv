@@ -1,0 +1,13 @@
+column,flag
+customer_id,ID_LIKE; 150 exact full-row duplicates found
+signup_date,"DATE; range 2023-01-01..2025-06-18; no target-rate drift checked (cross-sectional snapshot, ASSUMED)"
+age,"SENTINEL: 0 (n=29, impossible - no customer age 0) and 250 (n=33, impossible) -> null"
+total_charges,SENTINEL: -999 (n=367) -> null; plus 244 genuine NaN; MISSING total ~9.9%
+last_invoice_amount,MISSING:17.6% (1085/6150); no sentinel found; correlates with monthly_charges as expected
+contract_type,SPELLING_VARIANTS: case/whitespace variants of Month-to-month/One year/Two year -> canonicalize
+churn_reason,MISSING:91.3%; non-null ONLY when churned==1 (perfect correspondence) -> DERIVED_FROM_TARGET / written after outcome
+account_status_code,"NEAR_PERFECT vs target: status C = 527/531 churned rows, A/S mostly non-churn -> written after outcome (cancellation status)"
+region,"20 levels (R00-R19), no sparse-level concern at this n"
+payment_method,"4 clean levels, no variants"
+support_calls_90d,"int 0-7, no sentinel"
+avg_daily_usage_mb,"continuous, right-skewed tail up to 4196 vs median ~20 -> EXTREME_MAX, handed to Stage 5"

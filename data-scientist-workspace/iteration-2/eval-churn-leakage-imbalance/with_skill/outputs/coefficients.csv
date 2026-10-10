@@ -1,0 +1,41 @@
+feature,coef
+cat__contract_type_Month-to-month,0.5526866549854088
+cat__contract_type_One year,-0.33888623926432243
+num__tenure_months,-0.32066488583403857
+num__support_calls_90d,0.29462104162080094
+cat__contract_type_Two year,-0.21348271969413588
+cat__payment_method_Electronic check,0.2043655625676907
+cat__region_R07,0.17248665549652772
+num__last_invoice_amount,0.1457097776226206
+cat__region_R00,0.14035213341158345
+cat__region_R12,-0.13778964108782893
+num__missingindicator_last_invoice_amount,0.1140056384018845
+num__monthly_charges,0.11147926513299344
+cat__region_R03,-0.09699765104437011
+cat__region_R11,-0.09510469122547947
+num__avg_daily_usage_mb,-0.09282293283520998
+cat__payment_method_Bank transfer,-0.08447867000173578
+cat__region_R04,0.07888875223447678
+cat__region_R09,-0.07501470169507624
+cat__payment_method_Mailed check,-0.074729497857102
+cat__region_R08,0.0626380716037893
+cat__region_R18,-0.060281959010192565
+cat__region_R17,0.059136029632190196
+cat__region_R02,-0.05702431045649875
+cat__region_R16,-0.056755722112397294
+cat__region_R06,0.052653633625678646
+cat__payment_method_Credit card,-0.04483969868190238
+cat__region_R13,0.041717910490653334
+num__age,-0.04007585117691169
+cat__region_R10,-0.0399280472886953
+cat__region_R01,0.0352701491192597
+cat__region_R05,-0.033944988474961524
+num__charge_gap,-0.025417258533720538
+num__total_charges,-0.02461099512440429
+cat__region_R14,-0.018902203403681907
+cat__region_R15,0.016171015677714912
+num__missingindicator_age,0.0157259324371564
+num__missingindicator_total_charges,-0.014417914930088009
+num__missingindicator_charge_gap,-0.014417914930088009
+cat__region_R19,0.012747260534258547
+num__is_new_customer,0.007995297431937925

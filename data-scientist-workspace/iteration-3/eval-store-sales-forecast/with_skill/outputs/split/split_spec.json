@@ -1,0 +1,66 @@
+{
+  "scheme": "group_time",
+  "params": {
+    "target": "sales",
+    "scheme": "group_time",
+    "id": "row_id",
+    "group": "store_id",
+    "time": "week_start",
+    "test_size": 0.2,
+    "test_periods": 8,
+    "holdout_size": 0.15,
+    "holdout_periods": 8,
+    "n_splits": 5,
+    "gap_periods": 0,
+    "seed": 42,
+    "drop_overlap_groups": false
+  },
+  "sizes": {
+    "train": 1757,
+    "holdout": 160,
+    "test": 160
+  },
+  "folds": {
+    "-1": 878,
+    "0": 180,
+    "1": 179,
+    "2": 180,
+    "3": 180,
+    "4": 160
+  },
+  "test_ids_sha256": "cb185bb1a442dddf95b55efd70c49e45c312778a17f248ad213e092fe645aeef",
+  "excluded_overlap_rows": 0,
+  "target_by_part": {
+    "train": {
+      "mean": 20370.577,
+      "median": 18398.0
+    },
+    "holdout": {
+      "mean": 22936.75,
+      "median": 22269.5
+    },
+    "test": {
+      "mean": 23428.459,
+      "median": 22145.0
+    }
+  },
+  "time_range_by_part": {
+    "train": [
+      "2023-01-02",
+      "2024-09-02"
+    ],
+    "holdout": [
+      "2024-09-09",
+      "2024-10-28"
+    ],
+    "test": [
+      "2024-11-04",
+      "2024-12-23"
+    ]
+  },
+  "group_overlap": {
+    "train&test": 20,
+    "train&holdout": 20,
+    "holdout&test": 20
+  }
+}

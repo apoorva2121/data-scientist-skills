@@ -1,0 +1,7 @@
+column,skew,iqr15,iqr3,mad35,min,p01,p99,max,flagged_target_rate,overall_target_rate,lift,max_period_share,hint
+tenure_months,-0.01,0,0,0,1.0,1.0,72.0,72.0,,0.0867,,,no extremes
+monthly_charges,0.07,9,0,0,15.0,15.0,126.145,154.48,,0.0867,,,no extremes
+total_charges,0.75,30,0,6,19.87,80.725,7409.148,10262.24,0.0,0.0877,0.0,0.5,isolated extremes: check each against domain rules (error?)
+avg_daily_usage_mb,19.57,194,61,137,1.42,2.83,57.971,4196.0,0.0803,0.0867,0.93,0.29,"15 rows > 10x p99: likely entry/unit errors (x10, x100, x1000?); verify, then null as errors"
+age,0.02,0,0,0,18.0,18.0,85.0,85.0,,0.0865,,,no extremes
+last_invoice_amount,0.19,16,0,2,12.68,15.538,131.451,170.61,0.5,0.0735,6.8,,isolated extremes: check each against domain rules (error?)

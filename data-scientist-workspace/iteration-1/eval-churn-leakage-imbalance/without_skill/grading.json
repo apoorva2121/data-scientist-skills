@@ -1,0 +1,30 @@
+{
+  "run": "without_skill (sonnet)",
+  "graded_by": "inline, from outputs/*.py and outputs/report.md",
+  "expectations": [
+    {"text": "leak_columns_excluded", "passed": true, "evidence": "report 2.1 and 01_prepare_data.py LEAKAGE_COLS drop churn_reason and account_status_code"},
+    {"text": "duplicates_removed", "passed": true, "evidence": "report 2.2: 150 exact duplicate rows dropped"},
+    {"text": "sentinel_handled", "passed": true, "evidence": "report 2.3: total_charges == -999 recoded to missing (367 rows)"},
+    {"text": "category_normalised", "passed": true, "evidence": "report 2.4: 12 raw contract_type spellings normalised to 3"},
+    {"text": "usage_errors_detected", "passed": false, "evidence": "no outlier analysis anywhere; report lists avg_daily_usage_mb only as a near-noise feature; the ~100x entry errors are never mentioned"},
+    {"text": "impossible_age_handled", "passed": true, "evidence": "report 2.3: age 0 (29 rows) and 250 (33 rows) recoded to missing as placeholders"},
+    {"text": "informative_missingness_flagged", "passed": true, "evidence": "report 2.5 compares missingness by target (30.5% vs 16.4%) and drops the column as leak-risk with a stated timing assumption ('invoices simply stopping once a customer leaves'). Passes the revised wording; no ablation was run to test it"},
+    {"text": "record_timing_questioned", "passed": true, "evidence": "timing reasoning given for churn_reason (filled only for churners), account_status_code ('C' = cancelled) and last_invoice_amount; not asked for other strong features"},
+    {"text": "preprocessing_in_fold", "passed": true, "evidence": "02_model_comparison.py and 03_tune_and_finalize.py: SimpleImputer, StandardScaler, OneHotEncoder inside Pipeline/ColumnTransformer"},
+    {"text": "baseline_reported", "passed": true, "evidence": "PR-AUC compared with the 0.087 base rate (random ranking) and lift@10% vs random calling; no business-rule or majority baseline"},
+    {"text": "capacity_metric", "passed": true, "evidence": "precision, recall and lift at top 10% are headline metrics; report explains why accuracy is meaningless"},
+    {"text": "auc_within_ceiling", "passed": true, "evidence": "test ROC-AUC 0.720 (ceiling 0.73)"},
+    {"text": "candidates_compared_with_spread", "passed": true, "evidence": "4 families, 5-fold CV, mean +/- std in cv_model_comparison.csv"},
+    {"text": "decision_log_reasoning", "passed": false, "evidence": "no stage-by-stage record of alternatives considered and skipped; no outlier stage; imputation choice (median) not compared or justified against alternatives"},
+    {"text": "test_once", "passed": true, "evidence": "80/20 stratified split up front; tuning on train CV; single test evaluation (explanations also computed on test, which does not select anything)"},
+    {"text": "drivers_match_truth", "passed": true, "evidence": "contract type, support calls, tenure; secondary monthly charges and payment method; leak columns absent"}
+  ],
+  "summary": {"passed": 14, "total": 16, "pass_rate": 0.875},
+  "other_observations": [
+    "Took 30 min against a 20 min budget.",
+    "Balanced class weights left probabilities uncalibrated (Brier 0.225); noted as a caveat, not fixed.",
+    "No noise floor: 'LR beat trees 0.208 vs 0.183-0.190' is stated without judging it against fold spread.",
+    "No locked holdout between tuning and the test set.",
+    "Dropped last_invoice_amount entirely, losing a legitimate informative-missingness signal (answer key)."
+  ]
+}

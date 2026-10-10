@@ -1,0 +1,316 @@
+=== SHAPE ===
+(4320, 15)
+
+=== DTYPES ===
+listing_id                object
+property_id               object
+sold_date                 object
+sqft                     float64
+bedrooms                   int64
+bathrooms                  int64
+year_built                 int64
+lot_size_sqft            float64
+neighborhood              object
+distance_to_center_km    float64
+condition                 object
+garage                    object
+tax_assessed_value       float64
+price                    float64
+price_per_sqft           float64
+dtype: object
+
+=== HEAD ===
+  listing_id property_id   sold_date    sqft  bedrooms  bathrooms  year_built  lot_size_sqft neighborhood  distance_to_center_km  condition garage  tax_assessed_value     price  price_per_sqft
+0    L002493     P002493  2022-02-21  1625.0         4          3        2007         5328.0          N02                    7.0       Good     No            146400.0  176900.0          108.86
+1    L002130     P002130  2021-05-22  2519.0         4          3        1996            NaN          N01                    9.4       Good    yes             93300.0  122400.0           48.59
+2    L000538     P000538  2023-11-30  1383.0         3          1        1925        12520.0          N00                   11.9       Good    Yes             57800.0   72500.0           52.42
+3    L002455     P002455  2024-02-04  1535.0         3          1        1921         7422.0          N13                    3.4       Fair     No             88600.0   77100.0           50.23
+4    L000095     P000095  2024-11-24  3220.0         5          4        1996            NaN          N16                   12.3  Very Good    Yes            241300.0  272900.0           84.75
+5    L003344     P003344  2024-12-23  1041.0         2          1        1948         1960.0          N28                    4.4       Fair    Yes             44600.0   49000.0           47.07
+6    L000957     P000957  2024-04-27  2759.0         5          3        1925            NaN          N03                    5.6  Very Good    Yes            227100.0  228800.0           82.93
+7    L003856     P003856  2021-10-30  2379.0         4          2        2000         7047.0          N08                   10.5  Excellent    Yes             97600.0  123800.0           52.04
+8    L001145     P001145  2022-02-16  1833.0         4          2        1970         7763.0          N16                   18.2       Good    Yes            108900.0  147400.0           80.41
+9    L003503     P003503  2021-07-17  2317.0         3          1        1968            NaN          N00                    8.1  Very Good    Yes             80100.0   83800.0           36.17
+
+=== MISSING (count, pct) ===
+                       n_missing    pct
+listing_id                     0   0.00
+property_id                    0   0.00
+sold_date                      0   0.00
+sqft                           0   0.00
+bedrooms                       0   0.00
+bathrooms                      0   0.00
+year_built                     0   0.00
+lot_size_sqft                878  20.32
+neighborhood                   0   0.00
+distance_to_center_km          0   0.00
+condition                      0   0.00
+garage                        56   1.30
+tax_assessed_value             0   0.00
+price                          0   0.00
+price_per_sqft                 0   0.00
+
+=== DESCRIBE numeric ===
+                        count           mean           std      min        25%       50%        75%       max
+sqft                   4320.0    2236.248148   5620.130951     50.0   1433.000   1811.00    2282.25  100000.0
+bedrooms               4320.0       3.178241      1.278236      1.0      2.000      3.00       4.00       6.0
+bathrooms              4320.0       1.957870      0.869904      1.0      1.000      2.00       3.00       4.0
+year_built             4320.0    1960.870139     36.726154   1800.0   1930.000   1960.00    1992.00    2090.0
+lot_size_sqft          3442.0    6773.189425   3619.857495    940.0   4292.000   5955.50    8335.50   33020.0
+distance_to_center_km  4320.0       9.554769      6.163479      0.7      5.400      8.00      11.90      75.1
+tax_assessed_value     4320.0   94225.949074  47421.868087  17400.0  60500.000  83150.00  116600.00  514400.0
+price                  4320.0  111613.425926  53755.429888  22400.0  73000.000  99400.00  138100.00  588900.0
+price_per_sqft         4320.0      58.533019     21.735610      1.8     44.905     54.49      68.51     792.0
+
+=== ID uniqueness ===
+listing_id unique: 4320 / 4320
+property_id unique: 4000 / 4320
+listing_id == property_id suffix match: 0.9259259259259259
+Full-row duplicates: 0
+Duplicates ignoring listing_id: 0
+Duplicate property_id rows (repeat sales): 640
+
+=== CATEGORICALS ===
+
+--- bedrooms (6 levels) ---
+bedrooms
+3    1351
+2    1063
+4     921
+5     403
+1     328
+6     254
+Name: count, dtype: int64
+
+--- bathrooms (4 levels) ---
+bathrooms
+2    1725
+1    1502
+3     866
+4     227
+Name: count, dtype: int64
+
+--- neighborhood (30 levels) ---
+neighborhood
+N00    920
+N01    488
+N02    331
+N03    247
+N04    236
+N05    208
+N07    168
+N06    163
+N09    142
+N08    112
+N10    108
+N14     91
+N11     88
+N15     83
+N13     81
+N25     75
+N12     74
+N16     73
+N17     71
+N18     66
+N19     61
+N20     61
+N23     56
+N29     51
+N21     50
+N26     47
+N24     47
+N22     45
+N28     43
+N27     34
+Name: count, dtype: int64
+
+--- condition (5 levels) ---
+condition
+Good         1894
+Very Good    1110
+Fair          673
+Excellent     423
+Poor          220
+Name: count, dtype: int64
+
+--- garage (8 levels) ---
+garage
+Yes    2674
+No     1126
+yes     126
+YES     124
+Y       121
+NaN      56
+N        48
+no       45
+Name: count, dtype: int64
+
+=== sold_date ===
+unparseable: 0
+min: 2021-01-01 00:00:00 max: 2026-10-02 00:00:00
+sold_date
+2021    1000
+2022    1051
+2023    1084
+2024    1075
+2025      88
+2026      22
+Name: count, dtype: int64
+
+=== TARGET price ===
+count      4320.000000
+mean     111613.425926
+std       53755.429888
+min       22400.000000
+1%        37357.000000
+5%        49100.000000
+10%       57190.000000
+25%       73000.000000
+50%       99400.000000
+75%      138100.000000
+90%      182410.000000
+95%      213700.000000
+99%      284010.000000
+max      588900.000000
+Name: price, dtype: float64
+skew: 1.5405855444285799  log-skew: 0.09356902890154617
+non-positive prices: 0
+price NaN: 0
+
+=== price_per_sqft check (leakage candidate) ===
+abs diff price_per_sqft vs price/sqft (describe):
+count    4320.000000
+mean        4.707696
+std       118.804503
+min         0.000000
+25%         0.001240
+50%         0.002499
+75%         0.003735
+max      4992.560000
+dtype: float64
+corr(price_per_sqft, price): 0.49952516443834083
+
+=== tax_assessed_value vs price ===
+corr: 0.9446846390576603
+price / tax ratio describe:
+count    4320.000000
+mean        1.210534
+std         0.195646
+min         0.727204
+1%          0.874203
+5%          0.948464
+25%         1.075443
+50%         1.182974
+75%         1.315536
+95%         1.567106
+99%         1.820718
+max         2.384047
+dtype: float64
+
+=== Numeric sanity ===
+sqft: min=50.0, max=100000.0, n<=0=0, nunique=1996
+lot_size_sqft: min=940.0, max=33020.0, n<=0=0, nunique=2725
+year_built: min=1800, max=2090, n<=0=0, nunique=126
+distance_to_center_km: min=0.7, max=75.1, n<=0=0, nunique=314
+tax_assessed_value: min=17400.0, max=514400.0, n<=0=0, nunique=1485
+
+=== Correlations with price (numeric) ===
+price                    1.000000
+tax_assessed_value       0.944685
+bedrooms                 0.643820
+bathrooms                0.559715
+price_per_sqft           0.499525
+year_built               0.139471
+sqft                     0.107966
+lot_size_sqft            0.085304
+distance_to_center_km   -0.106739
+Name: price, dtype: float64
+
+=== Price by neighborhood ===
+              count    median           mean           std
+neighborhood                                              
+N25              75   58100.0   59625.333333  19858.595343
+N26              47   72800.0   76559.574468  26098.381256
+N22              45   79800.0   90246.666667  42082.908429
+N13              81   80800.0   92409.876543  36948.161676
+N05             208   81050.0   88538.461538  36106.675839
+N04             236   81500.0   88052.118644  35398.537591
+N00             920   81850.0   90707.500000  37256.757546
+N19              61   83100.0   86800.000000  34484.334608
+N11              88   83800.0   92380.681818  40257.372732
+N01             488   86000.0   93785.655738  40285.078063
+N27              34   92150.0  114685.294118  64578.888249
+N24              47   92500.0  115808.510638  65084.529751
+N12              74   93850.0  107698.648649  45572.713217
+N28              43   94400.0  103020.930233  40379.241238
+N23              56   94450.0  107844.642857  45077.323142
+N08             112   96150.0  106980.357143  46726.734519
+N14              91  109300.0  116782.417582  49919.385220
+N07             168  112900.0  127538.690476  56789.180387
+N29              51  113500.0  118264.705882  42714.319957
+N21              50  117950.0  119632.000000  39971.017255
+N18              66  118550.0  132565.151515  50758.791561
+N20              61  119400.0  125239.344262  33934.467624
+N09             142  122450.0  130586.619718  51428.766723
+N16              73  124300.0  138335.616438  55787.511968
+N03             247  127300.0  134835.222672  53198.972404
+N10             108  133700.0  147170.370370  54755.178579
+N17              71  135600.0  143298.591549  58302.877883
+N15              83  138900.0  143501.204819  56133.222401
+N06             163  143200.0  154145.398773  57647.362646
+N02             331  159900.0  167507.250755  68062.760311
+
+=== Price by condition ===
+           count    median           mean
+condition                                
+Excellent    423  111700.0  122959.810875
+Fair         673   88500.0   98417.682021
+Good        1894   99500.0  111722.333685
+Poor         220   89500.0  100004.545455
+Very Good   1110  103650.0  117405.225225
+
+=== Price by garage (raw labels) ===
+        count    median           mean
+garage                                
+N          48   86600.0  112204.166667
+No       1126   96950.0  107797.779751
+Y         121  104100.0  112606.611570
+YES       124  107750.0  125028.225806
+Yes      2674  100700.0  113112.004488
+no         45   83900.0   96724.444444
+yes       126   95250.0  106958.730159
+NaN        56  100400.0  106858.928571
+
+=== Price by year sold ===
+      count    median           mean
+year                                
+2021   1000   92100.0  102386.800000
+2022   1051   97800.0  109610.656518
+2023   1084  103500.0  117052.306273
+2024   1075  103200.0  115974.697674
+2025     88  113050.0  120123.863636
+2026     22  103800.0  111545.454545
+
+=== sqft vs price outliers ===
+        sqft  bedrooms neighborhood  tax_assessed_value     price  price_per_sqft
+939   5569.0         6          N02            514400.0  588900.0          105.75
+2398  3623.0         6          N02            427000.0  490000.0          135.25
+334   4410.0         6          N02            364400.0  444600.0          100.82
+2073  5206.0         6          N02            279700.0  395900.0           76.05
+2179  3321.0         6          N02            370800.0  394300.0          118.73
+1885  3424.0         6          N15            349800.0  378600.0          110.57
+2979  3596.0         6          N02            279400.0  368600.0          102.50
+1058  5196.0         6          N07            362500.0  365500.0           70.34
+175   3585.0         5          N02            271700.0  363600.0          101.42
+3063  3596.0         6          N02            279400.0  361500.0          100.53
+       sqft  bedrooms neighborhood  tax_assessed_value    price  price_per_sqft
+1675  681.0         1          N25             18400.0  22400.0           32.89
+3349  714.0         1          N25             26000.0  24900.0           34.87
+2025  660.0         2          N11             22300.0  25800.0           39.09
+606   486.0         1          N00             26500.0  25900.0           53.29
+689   596.0         1          N00             25300.0  25900.0           43.46
+3380  797.0         1          N19             17400.0  26700.0           33.50
+3271  922.0         1          N00             20700.0  27400.0           29.72
+3263  797.0         1          N19             17400.0  27400.0           34.38
+736   750.0         1          N05             25600.0  28500.0           38.00
+3027  932.0         1          N00             21600.0  28600.0           30.69

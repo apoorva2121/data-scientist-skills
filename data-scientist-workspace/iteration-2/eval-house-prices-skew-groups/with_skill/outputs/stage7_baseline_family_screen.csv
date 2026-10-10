@@ -1,0 +1,6 @@
+name,mean,sd,diff_vs_best,se_corrected,n_pairs,keep,within_noise_floor
+lightgbm_final_prep,-12397.0831,337.8073,0.0,0.0,5,True,True
+ridge_final_prep,-12593.9897,605.2654,-196.9066,404.1234,5,True,True
+tree_depth3,-15641.0681,616.4778,-3243.985,189.9394,5,False,False
+business_rule_sqft_neighborhood,-17506.7549,947.028,-5109.6718,437.3894,5,False,False
+trivial_median,-39538.2276,2649.3896,-27141.1445,1525.0736,5,False,False

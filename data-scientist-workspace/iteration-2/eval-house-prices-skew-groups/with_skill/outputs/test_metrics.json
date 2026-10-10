@@ -1,0 +1,86 @@
+{
+  "test_metrics": {
+    "trivial_median": {
+      "MAE": {
+        "point": 42385.3,
+        "ci95": [
+          39157.1,
+          45654.5
+        ]
+      },
+      "RMSE": {
+        "point": 60413.5,
+        "ci95": [
+          54857.6,
+          65781.1
+        ]
+      },
+      "MAPE_pct": {
+        "point": 37.2,
+        "ci95": [
+          34.7,
+          39.9
+        ]
+      }
+    },
+    "business_rule": {
+      "MAE": {
+        "point": 20158.1,
+        "ci95": [
+          18650.0,
+          21661.5
+        ]
+      },
+      "RMSE": {
+        "point": 27993.9,
+        "ci95": [
+          25670.7,
+          30239.9
+        ]
+      },
+      "MAPE_pct": {
+        "point": 16.5,
+        "ci95": [
+          15.6,
+          17.4
+        ]
+      }
+    },
+    "final_ridge_pipeline": {
+      "MAE": {
+        "point": 13649.6,
+        "ci95": [
+          12489.6,
+          14918.4
+        ]
+      },
+      "RMSE": {
+        "point": 20718.7,
+        "ci95": [
+          17660.5,
+          24044.7
+        ]
+      },
+      "MAPE_pct": {
+        "point": 12.1,
+        "ci95": [
+          11.3,
+          12.9
+        ]
+      }
+    }
+  },
+  "interval_coverage_test": {
+    "coverage": 0.8873456790123457,
+    "mean_width": 54714.4218632399,
+    "below": 0.08024691358024691,
+    "above": 0.032407407407407406
+  },
+  "conformal": {
+    "method": "split-conformal, hand-implemented (MAPIE not installed)",
+    "nonconformity": "abs(log(y) - log(pred))",
+    "calibration_set": "holdout (n=649)",
+    "target_coverage": 0.9,
+    "q_log_space": 0.22945262035628566
+  }
+}

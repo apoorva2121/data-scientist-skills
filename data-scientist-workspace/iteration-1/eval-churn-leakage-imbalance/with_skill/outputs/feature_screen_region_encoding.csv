@@ -1,0 +1,7 @@
+name,mean,sd,diff_vs_best,se_corrected,n_pairs,keep
+linear_region_targetenc,0.2088,0.0179,0.0,0.0,5,True
+linear_region_drop,0.2082,0.0177,-0.0006,0.0007,5,True
+linear_region_onehot,0.184,0.0197,-0.0248,0.0076,5,True
+gbdt_region_onehot,0.1394,0.0269,-0.0694,0.02,5,False
+gbdt_region_drop,0.1369,0.0121,-0.0719,0.0122,5,False
+gbdt_region_targetenc,0.1357,0.0188,-0.0731,0.0156,5,False

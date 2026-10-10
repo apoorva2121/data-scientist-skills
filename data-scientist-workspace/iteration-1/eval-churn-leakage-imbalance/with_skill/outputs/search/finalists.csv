@@ -1,0 +1,5 @@
+name,mean,sd,diff_vs_best,se_corrected,n_pairs,keep,family,complexity
+"T41:linear:outliers=none,missing_values=median",0.2174,0.0399,0.0,0.0,5,True,linear,"(0, 1, 1)"
+"T18:linear:outliers=log1p_skewed,missing_values=median",0.2165,0.0396,-0.0009,0.0009,5,True,linear,"(0, 2, 2)"
+"T10:gbdt:outliers=none,missing_values=median",0.1939,0.0317,-0.0235,0.0127,5,True,gbdt,"(2, 1, 1)"
+"T3:gbdt:outliers=none,missing_values=native_nan",0.1877,0.0298,-0.0297,0.0107,5,True,gbdt,"(2, 0, 0)"

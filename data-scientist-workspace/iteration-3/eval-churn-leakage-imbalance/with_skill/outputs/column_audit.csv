@@ -1,0 +1,16 @@
+column,inferred_type,n_missing_raw,pct_missing_raw,n_unique,pct_unique,top_values,flags,min,max,p01,median,p99,skew
+customer_id,categorical,0,0.0,6000,97.56,C000713=2; C004386=2; C002752=2,ID_LIKE,,,,,,
+signup_date,datetime,0,0.0,900,14.63,2023-01-24=20; 2023-01-07=17; 2024-04-19=15,,2023-01-01,2025-06-18,,,,
+tenure_months,numeric,0,0.0,72,1.17,18=117; 40=109; 53=107,,1,72,1.0,37.0,72.0,0.01
+monthly_charges,numeric,0,0.0,4346,70.67,15.0=80; 89.45=5; 59.73=5,,15.0,163.81,15.0,70.19,127.2202,0.06
+total_charges,numeric,244,3.97,5376,87.41,-999.0=367; 1671.58=3; 3966.7=2,MISSING:3.97% | SENTINEL?-999x367,-999.0,10262.24,-999.0,2120.575,7413.123,0.53
+contract_type,categorical,0,0.0,9,0.15,Month-to-month=3058; One year=1349; Two year=1133,SPELLING_VARIANTS:6,,,,,,
+payment_method,categorical,0,0.0,4,0.07,Mailed check=1597; Credit card=1574; Bank transfer=1531,,,,,,,
+support_calls_90d,numeric,0,0.0,8,0.13,1=2164; 0=1824; 2=1414,,0,7,0.0,1.0,4.0,0.88
+avg_daily_usage_mb,numeric,0,0.0,2539,41.28,7.78=12; 9.48=11; 8.65=10,EXTREME_MAX:73x_p99 | FAR_OUT_3IQR:93,1.42,4196.0,2.8947000000000003,12.42,57.58240000000006,20.16
+region,categorical,0,0.0,20,0.33,R07=343; R11=339; R12=335,,,,,,,
+age,numeric,0,0.0,70,1.14,24=109; 33=107; 30=106,FAR_OUT_3IQR:33,0,250,18.0,52.0,85.0,2.65
+churned,numeric,0,0.0,2,0.03,0=5618; 1=532,,0,1,0.0,0.0,1.0,2.94
+last_invoice_amount,numeric,1085,17.64,3817,62.07,89.13=6; 78.97=5; 68.37=5,MISSING:17.64%,11.88,170.61,15.3748,69.19,132.21679999999995,0.17
+churn_reason,categorical,5618,91.35,5,0.08,price=129; moved=110; other=102,STRING_SENTINEL?<blank>,,,,,,
+account_status_code,categorical,0,0.0,3,0.05,A=4998; S=586; C=566,,,,,,,

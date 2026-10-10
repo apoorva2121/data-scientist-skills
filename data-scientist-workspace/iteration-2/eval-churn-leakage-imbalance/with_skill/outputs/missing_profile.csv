@@ -1,0 +1,4 @@
+column,missing_share,indicator_predicts_other_cols_auc,indicator_predicts_target_auc,mechanism_verdict
+total_charges,0.0995,0.4947,0.4957,MCAR-like
+age,0.0103,0.4953,0.4992,MCAR-like
+last_invoice_amount,0.1785,0.6063,0.561,informative

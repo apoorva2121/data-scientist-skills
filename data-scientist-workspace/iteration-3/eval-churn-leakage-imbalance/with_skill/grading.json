@@ -1,0 +1,29 @@
+{
+  "run": "with_skill iteration-3 verification (sonnet)",
+  "graded_by": "inline, from outputs/decision_log.md, cleaning_log.md and the agent summary",
+  "expectations": [
+    {"text": "leak_columns_excluded", "passed": true, "evidence": "leak_screen.py: churn_reason 1.00, account_status_code 0.99; both dropped with fill-pattern and status evidence"},
+    {"text": "duplicates_removed", "passed": true, "evidence": "150 exact duplicates dropped, 0 conflicting"},
+    {"text": "sentinel_handled", "passed": true, "evidence": "total_charges -999 -> NaN (360 rows)"},
+    {"text": "category_normalised", "passed": true, "evidence": "11 contract_type variants mapped to 3 levels"},
+    {"text": "usage_errors_detected", "passed": true, "evidence": "extremes up to 4196 vs p99 ~60 noted as possible metering errors, kept as a data-quality follow-up with a stated reason; outlier_profile.py was not run (compact mode merged Stages 4-6)"},
+    {"text": "impossible_age_handled", "passed": false, "evidence": "only ages > 120 nulled (32 rows); the 29 planted age = 0 rows were kept as real ages"},
+    {"text": "informative_missingness_flagged", "passed": true, "evidence": "last_invoice_amount investigated as a possible leak and kept under an ASSUMED timing, with median+indicator imputation"},
+    {"text": "record_timing_questioned", "passed": true, "evidence": "leak_table.csv with timing verdicts; ASSUMED lines for the data owner"},
+    {"text": "preprocessing_in_fold", "passed": true, "evidence": "screen.py and joint_search.py pipelines on the Stage 2 folds"},
+    {"text": "baseline_reported", "passed": true, "evidence": "Stage 7 baselines including a business rule"},
+    {"text": "capacity_metric", "passed": true, "evidence": "precision@10% 0.258 [0.192, 0.325] headline; noise floor measured in precision@10% units (0.0133)"},
+    {"text": "auc_within_ceiling", "passed": true, "evidence": "test ROC-AUC 0.719 [0.670, 0.770]"},
+    {"text": "candidates_compared_with_spread", "passed": true, "evidence": "LightGBM and CatBoost screened and searched (30 trials); logistic ahead beyond the noise; learning-curve gap reported"},
+    {"text": "decision_log_reasoning", "passed": true, "evidence": "stage blocks with considered / applied / skipped; compact-mode merges logged"},
+    {"text": "test_once", "passed": true, "evidence": "65/15/20 split; CV 0.2385, holdout 0.2667, test 0.2583; shuffled-label check 0.082"},
+    {"text": "drivers_match_truth", "passed": true, "evidence": "month-to-month contract, tenure, support calls"}
+  ],
+  "summary": {"passed": 15, "total": 16, "pass_rate": 0.9375},
+  "other_observations": [
+    "14.6 min (875 s) measured by timestamps; 186k tokens.",
+    "Ran column_audit, leak_screen, make_split, cv_folds, screen, joint_search and final_eval; skipped missing_profile and outlier_profile under compact mode. Fixed after this run: compact mode now lists the profiling scripts that always run.",
+    "Missed age = 0: the audit script did not flag zeros inside normal fences. Fixed after this run: ZERO_VALUES? flag (29 of 29 found on this data, no false flags on the other two datasets) and a both-ends rule in ds-data-audit.",
+    "Reported friction fixed after this run: joint_search.py now finds the skill set when copied (DS_SKILLS_ROOT, repo, ~/.claude/skills); RuleBaseline added for business-rule baselines."
+  ]
+}

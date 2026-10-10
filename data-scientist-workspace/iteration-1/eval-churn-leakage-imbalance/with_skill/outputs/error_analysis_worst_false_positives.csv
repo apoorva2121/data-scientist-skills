@@ -1,0 +1,11 @@
+customer_id,signup_date,tenure_months,monthly_charges,total_charges,contract_type,payment_method,support_calls_90d,avg_daily_usage_mb,region,age,churned,last_invoice_amount,churn_reason,account_status_code,score
+C003795,2025-01-30,14,139.91,1883.01,month-to-month,Credit card,4,8.67,R07,34.0,0,,,A,0.8847359547427565
+C005267,2024-09-01,7,58.36,405.01,month-to-month,Electronic check,5,15.52,R18,60.0,0,,,A,0.8798426907663865
+C004947,2024-07-20,9,110.09,931.14,month-to-month,Credit card,4,14.62,R12,38.0,0,,,A,0.863407562350736
+C002445,2024-03-24,10,98.42,986.45,month-to-month,Electronic check,3,6.84,R14,36.0,0,,,A,0.8527471573632841
+C002844,2023-06-23,3,124.86,393.91,month-to-month,Credit card,3,14.36,R11,59.0,0,,,A,0.8498051152072562
+C002130,2024-11-14,3,109.78,337.17,month-to-month,Electronic check,2,13.57,R13,29.0,0,,,A,0.8440833846353487
+C003178,2025-05-24,12,97.9,1129.16,month-to-month,Electronic check,3,20.01,R12,77.0,0,,,A,0.8340015448385721
+C005646,2023-06-20,12,72.4,843.6,month-to-month,Credit card,4,15.82,R03,47.0,0,,,A,0.8079350045785056
+C004060,2024-01-08,5,128.79,638.15,month-to-month,Electronic check,1,5.24,R14,81.0,0,121.99,,A,0.8045983330632758
+C002588,2024-01-07,30,140.09,4214.14,month-to-month,Credit card,3,13.29,R01,64.0,0,134.99,,S,0.8031516642409968

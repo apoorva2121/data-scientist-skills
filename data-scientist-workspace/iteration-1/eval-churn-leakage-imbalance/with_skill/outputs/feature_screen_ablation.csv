@@ -1,0 +1,5 @@
+name,mean,sd,diff_vs_best,se_corrected,n_pairs,keep
+minus_residual,0.1855,0.0204,0.0,0.0,5,True
+minus_interaction,0.1853,0.0224,-0.0002,0.0022,5,True
+all_engineered,0.184,0.0197,-0.0015,0.0009,5,True
+minus_freq_caller,0.1833,0.0194,-0.0022,0.0014,5,True

@@ -1,0 +1,16 @@
+{
+  "pipeline": "Ridge(alpha=1.0) on log(price), median/most_frequent impute, standardize, one-hot",
+  "fold_maes_dollar": [
+    13467.56,
+    12770.46,
+    13629.05,
+    14585.47,
+    13608.65
+  ],
+  "fold_sd": 647.49,
+  "noise_floor_sd": 289.57,
+  "mean_mae_dollar": 13612.24,
+  "n_folds": 5,
+  "n_train_rows_after_overlap_fix": 2951,
+  "n_dropped_for_group_overlap": 72
+}

@@ -1,0 +1,5 @@
+feature,group,inputs,transformation,available_at_prediction,fitted_in_fold,families
+charge_gap,billing_consistency,"monthly_charges,tenure_months,total_charges",monthly_charges*tenure_months - total_charges,yes: all 3 inputs are current-state fields,no (stateless arithmetic),"linear,gbdt"
+is_new_customer,tenure,tenure_months,tenure_months<=3,yes,no (stateless),"linear,gbdt"
+log1p(avg_daily_usage_mb),usage_transform,avg_daily_usage_mb,log1p,yes,"no (stateless, no learned param)",linear only (trees invariant to monotonic transforms)
+"missing indicators (total_charges, last_invoice_amount)",missingness,"total_charges,last_invoice_amount",SimpleImputer(add_indicator=True),yes,yes (imputer),"linear,gbdt"

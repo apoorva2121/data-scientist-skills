@@ -1,0 +1,28 @@
+# ---- added for publication (2026-10-10) ----
+# --- credentials: never commit these ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.jks
+*.keystore
+secrets.txt
+env.txt
+*.env.txt
+service-account*.json
+credentials.json
+local.properties
+# --- os / editor noise ---
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+# --- build output ---
+_build/
+site/
+*.tmp
+~$*

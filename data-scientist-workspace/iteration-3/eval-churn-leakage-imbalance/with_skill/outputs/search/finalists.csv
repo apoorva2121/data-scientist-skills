@@ -1,0 +1,4 @@
+name,mean,sd,diff_vs_best,se_corrected,n_pairs,keep,within_noise_floor,family,complexity
+"T22:linear:outliers=none,missing_values=median_indicator,encoding=onehot",0.2385,0.0266,0.0,0.0,5,True,True,linear,"(0, 2, 1)"
+"T28:linear:outliers=winsorize_p01_p99,missing_values=median_indicator,encoding=onehot",0.2333,0.0278,-0.0051,0.0098,5,True,True,linear,"(0, 3, 2)"
+"T2:gbdt:outliers=none,missing_values=native_nan,encoding=onehot",0.2103,0.0153,-0.0282,0.0151,5,False,False,gbdt,"(2, 1, 0)"

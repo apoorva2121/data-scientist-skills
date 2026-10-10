@@ -1,0 +1,5 @@
+model,PR_AUC,PR_AUC_lo,PR_AUC_hi,ROC_AUC,ROC_AUC_lo,ROC_AUC_hi,precision_at_10,precision_at_10_lo,precision_at_10_hi,recall_at_10,recall_at_10_lo,recall_at_10_hi,n_flagged,n_true_positive_caught
+trivial_dummy,0.0867,0.0867,0.0867,0.5,0.5,0.5,0.0867,0.0867,0.0867,1.0,1.0,1.0,1200,104
+business_rule,0.1924,0.1485,0.2628,0.6919,0.6385,0.7465,0.2071,0.1532,0.2681,0.2788,0.1923,0.3846,140,29
+shallow_tree_d3,0.1719,0.1422,0.2116,0.7147,0.6647,0.7645,0.2329,0.1753,0.2934,0.3269,0.2404,0.4231,146,34
+final_pipeline_logreg,0.2107,0.1661,0.288,0.7162,0.666,0.7671,0.225,0.1639,0.3,0.2596,0.1923,0.3462,120,27

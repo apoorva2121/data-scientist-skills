@@ -1,0 +1,231 @@
+{
+  "cv": {
+    "scheme": "group_time_expanding",
+    "n_splits": 5,
+    "n_repeats": 1,
+    "groups": "property_id",
+    "seed": 42
+  },
+  "primary_metric": "neg_mean_absolute_error_dollar",
+  "noise_floor_sd": 289.57,
+  "noise_floor_definition": "fold_sd/sqrt(5) of a deterministic Ridge/log-price baseline on the fixed expanding-window folds (see split/noise_floor.json)",
+  "fixed_steps": [
+    "price_per_sqft: dropped (derived from target)",
+    "sqft in {50,100000} -> NaN (sentinel)",
+    "lot_size_sqft==9999 -> NaN (sentinel)",
+    "year_built in {1800,2090} -> NaN (sentinel)",
+    "garage spelling normalized to Yes/No"
+  ],
+  "stages": {
+    "missing_values": [
+      {
+        "name": "median",
+        "applies_to": [
+          "linear"
+        ],
+        "proxy_scores": {
+          "linear": [
+            -13612.24,
+            647.49
+          ]
+        },
+        "keep": true,
+        "reason": "sole survivor per family"
+      },
+      {
+        "name": "median_indicator",
+        "applies_to": [
+          "linear"
+        ],
+        "proxy_scores": {
+          "linear": [
+            -13640.36,
+            662.79
+          ]
+        },
+        "keep": false,
+        "reason": "tie vs median (diff -28 vs se 36); simpler wins"
+      },
+      {
+        "name": "median",
+        "applies_to": [
+          "gbdt"
+        ],
+        "proxy_scores": {
+          "gbdt": [
+            -12471.04,
+            354.13
+          ]
+        },
+        "keep": true,
+        "reason": "sole survivor per family"
+      },
+      {
+        "name": "native_nan",
+        "applies_to": [
+          "gbdt"
+        ],
+        "proxy_scores": {
+          "gbdt": [
+            -12564.19,
+            419.67
+          ]
+        },
+        "keep": false,
+        "reason": "real diff -93 vs se 67 (1.4 SE worse than median)"
+      }
+    ],
+    "outliers": [
+      {
+        "name": "winsorize_p01_p99_tailcols",
+        "applies_to": [
+          "linear"
+        ],
+        "proxy_scores": {
+          "linear": [
+            -13542.66,
+            577.74
+          ]
+        },
+        "keep": true
+      },
+      {
+        "name": "none",
+        "applies_to": [
+          "linear"
+        ],
+        "proxy_scores": {
+          "linear": [
+            -13612.24,
+            647.49
+          ]
+        },
+        "keep": true,
+        "reason": "provisional: only 5 folds (screen.py warning), diff ($70) within the Stage-2 global noise floor ($290) even though the paired-fold SE ($54) marks it as not-best; kept as the simpler option alongside winsorize for Stage 8 to arbitrate"
+      },
+      {
+        "name": "none",
+        "applies_to": [
+          "gbdt"
+        ],
+        "proxy_scores": {},
+        "keep": true,
+        "reason": "fixed reference; trees invariant to monotonic clipping, not screened"
+      }
+    ],
+    "features": [
+      {
+        "name": "plus_engineered",
+        "applies_to": [
+          "linear"
+        ],
+        "proxy_scores": {
+          "linear": [
+            -12593.99,
+            605.27
+          ]
+        },
+        "keep": true
+      },
+      {
+        "name": "base_cols",
+        "applies_to": [
+          "linear"
+        ],
+        "proxy_scores": {
+          "linear": [
+            -13542.66,
+            577.74
+          ]
+        },
+        "keep": false
+      },
+      {
+        "name": "plus_engineered",
+        "applies_to": [
+          "gbdt"
+        ],
+        "proxy_scores": {
+          "gbdt": [
+            -12397.08,
+            337.81
+          ]
+        },
+        "keep": true
+      },
+      {
+        "name": "base_cols",
+        "applies_to": [
+          "gbdt"
+        ],
+        "proxy_scores": {
+          "gbdt": [
+            -12407.58,
+            367.92
+          ]
+        },
+        "keep": true
+      }
+    ],
+    "encoding": [
+      {
+        "name": "onehot",
+        "applies_to": [
+          "linear"
+        ],
+        "proxy_scores": {
+          "linear": [
+            -12593.99,
+            605.27
+          ]
+        },
+        "keep": true
+      },
+      {
+        "name": "target_encoding",
+        "applies_to": [
+          "linear"
+        ],
+        "proxy_scores": {
+          "linear": [
+            -13168.77,
+            641.96
+          ]
+        },
+        "keep": false
+      }
+    ],
+    "models": [
+      {
+        "name": "lightgbm_final_prep",
+        "mean": -12397.0831,
+        "sd": 337.8073,
+        "keep": true
+      },
+      {
+        "name": "ridge_final_prep",
+        "mean": -12593.9897,
+        "sd": 605.2654,
+        "keep": true
+      },
+      {
+        "name": "tree_depth3",
+        "mean": -15641.0681,
+        "sd": 616.4778,
+        "keep": false
+      },
+      {
+        "name": "business_rule_sqft_neighborhood",
+        "mean": -17506.7549,
+        "sd": 947.028,
+        "keep": false
+      },
+      {
+        "name": "trivial_median",
+        "mean": -39538.2276,
+        "sd": 2649.3896,
+        "keep": false
+      }
+    ]
+  }
+}

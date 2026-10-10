@@ -1,0 +1,5 @@
+name,mean,sd,diff_vs_best,se_corrected,n_pairs,keep,within_noise_floor
+simple_logistic,0.2103,0.0358,0.0,0.0,5,True,True
+business_rule,0.1897,0.0263,-0.0205,0.0358,5,True,False
+shallow_tree_d3,0.1744,0.038,-0.0359,0.033,5,False,False
+trivial_prior,0.0846,0.0295,-0.1256,0.03,5,False,False

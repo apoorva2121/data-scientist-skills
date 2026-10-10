@@ -1,0 +1,64 @@
+{
+  "scheme": "group_time",
+  "params": {
+    "target": "price",
+    "scheme": "group_time",
+    "id": "listing_id",
+    "group": "property_id",
+    "time": "sold_date",
+    "test_size": 0.15,
+    "test_periods": 0,
+    "holdout_size": 0.15,
+    "holdout_periods": 0,
+    "n_splits": 5,
+    "gap_periods": 0,
+    "seed": 42
+  },
+  "sizes": {
+    "train": 3023,
+    "holdout": 649,
+    "test": 648
+  },
+  "folds": {
+    "-1": 1451,
+    "0": 333,
+    "1": 306,
+    "2": 297,
+    "3": 330,
+    "4": 306
+  },
+  "test_ids_sha256": "aae787c8068650d60e2476bc11efe154fe1ae2a99647ef77b66025700ed9e619",
+  "target_by_part": {
+    "train": {
+      "mean": 109095.038,
+      "median": 97800.0
+    },
+    "holdout": {
+      "mean": 116045.3,
+      "median": 103900.0
+    },
+    "test": {
+      "mean": 116549.846,
+      "median": 102850.0
+    }
+  },
+  "time_range_by_part": {
+    "train": [
+      "2021-01-01",
+      "2023-10-17"
+    ],
+    "holdout": [
+      "2023-10-18",
+      "2024-05-10"
+    ],
+    "test": [
+      "2024-05-11",
+      "2024-12-30"
+    ]
+  },
+  "group_overlap": {
+    "train&test": 17,
+    "train&holdout": 55,
+    "holdout&test": 0
+  }
+}

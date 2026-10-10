@@ -1,0 +1,47 @@
+{
+  "cv": {
+    "scheme": "group_time rolling-origin backtest (panel, not sklearn CV)",
+    "n_origins": 5,
+    "horizon": 8,
+    "step": 4,
+    "season": 52,
+    "origins": ["2024-03-18", "2024-04-15", "2024-05-13", "2024-06-10", "2024-07-08"],
+    "seed": 42
+  },
+  "primary_metric": "MASE",
+  "secondary_metrics": ["WAPE", "sMAPE"],
+  "noise_floor_definition": "sd of MASE across the 5 backtest origins (origin-to-origin spread), used for paired per-origin comparisons",
+  "noise_floor_sd_by_candidate": {
+    "seasonal_naive": 0.0900,
+    "naive_last": 0.1032,
+    "AutoETS": 0.0963,
+    "AutoTheta": 0.0973,
+    "lgbm_global": 0.1853
+  },
+  "fixed_steps": [
+    "drop 4 exact duplicate rows",
+    "sales == -1 -> NaN (impossible negative sales), interpolated within each series' own history",
+    "inventory_end excluded from all features (same-period leak, also unavailable for the future)",
+    "holiday_week reproduced from calendar rule (ISO week-of-year in {1,14,27,47,51,52}) for gap rows and the future horizon",
+    "promo = 0 (ASSUMED baseline scenario) for the future horizon; no promotion calendar supplied"
+  ],
+  "stages": {
+    "forecast_candidates": [
+      {"name": "seasonal_naive", "applies_to": ["baseline"], "backtest_scores": {"MASE": 1.175, "WAPE": 0.153, "sMAPE": 0.205}},
+      {"name": "naive_last", "applies_to": ["baseline"], "backtest_scores": {"MASE": 1.118, "WAPE": 0.132, "sMAPE": 0.183}},
+      {"name": "AutoETS", "applies_to": ["statistical"], "backtest_scores": {"MASE": 1.114, "WAPE": 0.130, "sMAPE": 0.202}},
+      {"name": "AutoTheta", "applies_to": ["statistical"], "backtest_scores": {"MASE": 1.096, "WAPE": 0.127, "sMAPE": 0.190}},
+      {"name": "lgbm_global", "applies_to": ["ml_global"], "backtest_scores": {"MASE": 1.085, "WAPE": 0.120, "sMAPE": 0.179},
+       "features": ["h", "lag1", "lag52", "roll8", "roll26", "promo", "holiday_week", "woy"],
+       "hyperparameters": {"n_estimators": 300, "learning_rate": 0.05, "num_leaves": 15, "min_child_samples": 30, "random_state": 0}}
+    ],
+    "picked": "lgbm_global",
+    "pick_reason": "tied with AutoTheta and naive_last on the backtest (paired diffs << paired SE across 5 origins) but the only candidate using known-in-advance promo/holiday_week covariates, and the actual 8-week delivered window is unusually holiday-dense (3/8 weeks) with measured +18%/+24% median uplifts; confirmed on the frozen test set: MASE 0.992 vs seasonal_naive 1.143 and naive_last 1.252",
+    "runners_up_within_1SE": ["AutoTheta", "naive_last"]
+  },
+  "test_result": {
+    "MASE": 0.9923, "MASE_95CI": [0.797, 1.229],
+    "WAPE": 0.1216, "WAPE_95CI": [0.100, 0.148],
+    "baseline_seasonal_naive_MASE": 1.1425, "baseline_naive_last_MASE": 1.2521
+  }
+}

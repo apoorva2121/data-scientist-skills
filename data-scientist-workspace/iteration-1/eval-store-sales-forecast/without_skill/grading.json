@@ -1,0 +1,24 @@
+{
+  "run": "without_skill (sonnet)",
+  "graded_by": "inline, from outputs/report.md, forecast.csv and the agent summary",
+  "expectations": [
+    {"text": "leak_inventory_excluded", "passed": true, "evidence": "report: inventory_end not used as a model input; same-week use called circular"},
+    {"text": "sentinel_sales_handled", "passed": true, "evidence": "5 sales = -1 rows (S10, S12) treated as missing and interpolated"},
+    {"text": "duplicate_keys_removed", "passed": true, "evidence": "4 exact duplicate rows removed"},
+    {"text": "gaps_handled", "passed": true, "evidence": "S03's 3 missing weeks found; every store reindexed to the 104-week Monday grid"},
+    {"text": "structural_breaks_noted", "passed": true, "evidence": "S19 intermittent (63/105 zero weeks) flagged for Croston/reorder-point; the S07 level shift is not mentioned"},
+    {"text": "rolling_origin_backtest", "passed": true, "evidence": "walk-forward, 5 origins x 8 horizons x 20 stores, refit per origin"},
+    {"text": "seasonal_naive_baseline", "passed": true, "evidence": "seasonal naive and 8-week moving average compared in the backtest"},
+    {"text": "scale_free_metric", "passed": true, "evidence": "WAPE 8.6% overall, reported flat across horizons; S19 WAPE > 100% under all models"},
+    {"text": "known_future_covariates", "passed": true, "evidence": "holiday_week used as calendar-deterministic; promo excluded because no future promo calendar exists (explained, uplift quantified +24%); avg_temp_c excluded because no temperature forecast exists"},
+    {"text": "forecast_file_complete", "passed": true, "evidence": "forecast.csv: 20 stores x 8 weeks = 160 rows, no negatives, with 80% bounds"},
+    {"text": "candidates_compared", "passed": false, "evidence": "four approaches compared, but no spread across origins reported, so the ranking cannot be judged against noise"},
+    {"text": "decision_log_reasoning", "passed": false, "evidence": "good reasons for excluded covariates and the model choice, but no outlier or structural-break stage (S07 shift unnoticed) and no alternatives considered for gap filling"}
+  ],
+  "summary": {"passed": 10, "total": 12, "pass_rate": 0.833},
+  "other_observations": [
+    "Finished in 14 min, inside the 20 min budget.",
+    "Prediction intervals are a constant +/-1.28 sigma of in-sample residuals, not validated for coverage on the backtest.",
+    "Interpolated the -1 sentinel weeks rather than leaving them missing; acceptable for history."
+  ]
+}

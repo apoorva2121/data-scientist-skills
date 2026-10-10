@@ -1,0 +1,5 @@
+name,mean,sd,diff_vs_best,se_corrected,n_pairs,keep
+linear_baseline,0.1864,0.0235,0.0,0.0,5,True
+linear_plus_engineered,0.184,0.0197,-0.0024,0.0034,5,True
+gbdt_plus_engineered,0.1394,0.0269,-0.0471,0.024,5,False
+gbdt_baseline,0.1248,0.0141,-0.0617,0.0169,5,False

@@ -1,0 +1,12 @@
+{
+  "shuffled_label_pr_auc": 0.09640101167670459,
+  "shuffled_label_expected_near": 0.08666666666666667,
+  "duplicate_row_identical": true,
+  "raw_rows_scored_ok": true,
+  "raw_rows_scores": [
+    0.44463074713399164,
+    0.48121601543489145,
+    0.4157873313714429
+  ],
+  "repeat_scoring_identical": true
+}

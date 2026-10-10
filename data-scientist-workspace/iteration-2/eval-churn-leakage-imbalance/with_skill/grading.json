@@ -1,0 +1,31 @@
+{
+  "run": "with_skill iteration-2 (sonnet, decontaminated skills)",
+  "graded_by": "inline, from outputs/decision_log.md and the agent summary",
+  "expectations": [
+    {"text": "leak_columns_excluded", "passed": true, "evidence": "Stage 3: churn_reason and account_status_code found as near-perfect post-outcome leaks and dropped; skills no longer name them"},
+    {"text": "duplicates_removed", "passed": true, "evidence": "Stage 1: 150 exact duplicates dropped, churn rate checked before/after (8.65% -> 8.67%)"},
+    {"text": "sentinel_handled", "passed": true, "evidence": "Stage 1: total_charges -999 -> NaN"},
+    {"text": "category_normalised", "passed": true, "evidence": "Stage 1: contract_type canonicalised to 3 levels"},
+    {"text": "usage_errors_detected", "passed": true, "evidence": "Stage 5 examined the avg_daily_usage_mb tail and kept it with a stated reason (lift 1.17x, 'not a data-entry error signature'). Passes the wording, but the conclusion is wrong: the run wrote its own compact profiling instead of outlier_profile.py, whose >10x p99 check flags this cluster"},
+    {"text": "impossible_age_handled", "passed": true, "evidence": "Stage 1: age 0 and >=120 -> NaN"},
+    {"text": "informative_missingness_flagged", "passed": true, "evidence": "Stage 3 target signal 0.568 for last_invoice_amount; kept with median+indicator under an ASSUMED recording time (billed before scoring), listed as the main open risk. Matches the ground truth (legitimate)"},
+    {"text": "record_timing_questioned", "passed": true, "evidence": "Stage 3 leak table with timing verdicts; last_invoice_amount timing written as an ASSUMED line for the data owner"},
+    {"text": "preprocessing_in_fold", "passed": true, "evidence": "imputation, encoding and scaling inside pipelines on Stage 2 folds"},
+    {"text": "baseline_reported", "passed": true, "evidence": "Stage 7 baseline table"},
+    {"text": "capacity_metric", "passed": true, "evidence": "precision@10% headline, 0.267 [0.192, 0.350]; capacity threshold stored with the model"},
+    {"text": "auc_within_ceiling", "passed": true, "evidence": "test ROC-AUC 0.718 [0.667, 0.768]"},
+    {"text": "candidates_compared_with_spread", "passed": true, "evidence": "family screen and joint search with spreads; LightGBM/XGBoost configs lose by a consistent margin"},
+    {"text": "decision_log_reasoning", "passed": true, "evidence": "decision_log.md: Stage 0-10 blocks with considered / applied / carried forward / skipped with reasons"},
+    {"text": "test_once", "passed": true, "evidence": "65/15/20 split, sha256-verified test untouched, CV 0.233 -> holdout 0.200 -> test 0.267 reported"},
+    {"text": "drivers_match_truth", "passed": true, "evidence": "contract type, tenure, support calls"}
+  ],
+  "summary": {"passed": 16, "total": 16, "pass_rate": 1.0},
+  "other_observations": [
+    "13.6 min and 182k tokens: faster and slightly cheaper than the no-skill run (30 min, 187k), and inside the 25 min budget. The time-budget fix worked.",
+    "Stateless cleaning is now inside the saved pipeline; raw and duplicate rows scored correctly end to end. That fix worked.",
+    "Worst slice named: one-year contracts, ROC-AUC 0.53.",
+    "Skipped the bundled scripts for speed and wrote its own compact equivalents; that is how the usage entry errors were missed. Skill must make the scripts the default.",
+    "Noise floor measured in ROC-AUC while the primary metric was precision@10%; the skill does not say to measure it in the primary metric's units.",
+    "Saved with joblib, not skops as the evaluation skill recommends (versions pinned)."
+  ]
+}

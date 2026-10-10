@@ -1,0 +1,25 @@
+{
+  "run": "with_skill iteration-3 verification (sonnet)",
+  "graded_by": "inline, from outputs/decision_log.md, forecast.csv and the agent summary",
+  "expectations": [
+    {"text": "leak_inventory_excluded", "passed": true, "evidence": "Stage 3: inventory_end excluded as a same-period quantity (inventory = previous + restock - sales)"},
+    {"text": "sentinel_sales_handled", "passed": true, "evidence": "5 sales = -1 nulled and interpolated; 9999 in S11 and negative temperatures checked and kept as real"},
+    {"text": "duplicate_keys_removed", "passed": true, "evidence": "4 exact duplicates (S08, S17, S18, S19) dropped"},
+    {"text": "gaps_handled", "passed": true, "evidence": "regularize: 8 gap rows, 5 'row present, y missing' and 3 'period absent from data' (S03)"},
+    {"text": "structural_breaks_noted", "passed": true, "evidence": "break_report: S07 level shift (ratio 1.7 from 2024-05-06) and S19 intermittent (60% zeros), both discussed"},
+    {"text": "rolling_origin_backtest", "passed": true, "evidence": "5 rolling origins, horizon 8, train part only; group_time split with 8-week holdout and test"},
+    {"text": "seasonal_naive_baseline", "passed": true, "evidence": "seasonal naive and naive-last on the same origins and on test"},
+    {"text": "scale_free_metric", "passed": true, "evidence": "MASE and WAPE overall with CIs, by horizon and by store; S19 judged by MASE"},
+    {"text": "known_future_covariates", "passed": true, "evidence": "holiday_week reproduced from the verified calendar rule (weeks 1, 14, 27, 47, 51, 52; 100% match); forecast.csv marks ISO week 1 as holiday for all 20 stores; promo baseline 0 with measured +24.6% scenario uplift"},
+    {"text": "forecast_file_complete", "passed": true, "evidence": "160 rows, 20 stores x 8 horizons, non-negative"},
+    {"text": "candidates_compared", "passed": true, "evidence": "5 candidates on 5 origins with paired differences and SE; statistical tie made explicit"},
+    {"text": "decision_log_reasoning", "passed": true, "evidence": "Stage 0-10 blocks; deviations (joint_search and leak_screen not used for the panel) logged with reasons"}
+  ],
+  "summary": {"passed": 12, "total": 12, "pass_rate": 1.0},
+  "other_observations": [
+    "10m58s measured by clock (start and end times recorded); 176k tokens.",
+    "Test WAPE 12.2% [10.0, 14.8] vs 9.3% in iteration 2: a weaker feature set this run; candidates were statistically tied on the backtest and LightGBM was chosen for holiday awareness.",
+    "No prediction intervals built (logged as a gap).",
+    "Friction: joint_search.py and leak_screen.py target iid tabular data; make_split.py needs a single unique id column for panels."
+  ]
+}

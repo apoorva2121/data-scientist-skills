@@ -1,0 +1,37 @@
+{
+  "task": "binary classification, target=churned",
+  "positive_rate": 0.0867,
+  "honest_ceiling_roc_auc": 0.732,
+  "note_on_ceiling": "AUC of the true generating probability vs the label. Any reported AUC materially above this means leakage.",
+  "leak_columns": [
+    "churn_reason",
+    "account_status_code"
+  ],
+  "sentinel_values": {
+    "total_charges": -999
+  },
+  "true_missing": {
+    "total_charges": "4% MCAR",
+    "last_invoice_amount": "informative: missing rate rises with pre-outcome churn risk (0.02 + 2.0*p, capped at 0.9); NOT a leak, the missing indicator is a legitimate feature"
+  },
+  "category_inconsistency": [
+    "contract_type"
+  ],
+  "impossible_values": {
+    "age": "0 or 250 in ~1% of rows"
+  },
+  "outliers": {
+    "avg_daily_usage_mb": "~0.5% multiplied by 100"
+  },
+  "exact_duplicate_rows": 150,
+  "id_column": "customer_id",
+  "true_drivers": [
+    "contract_type",
+    "payment_method",
+    "support_calls_90d",
+    "tenure_months",
+    "monthly_charges",
+    "avg_daily_usage_mb"
+  ],
+  "business_constraint": "retention team can call ~10% of customers; precision/recall at top 10% matters, not accuracy"
+}

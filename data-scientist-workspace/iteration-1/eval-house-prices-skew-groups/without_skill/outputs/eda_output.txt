@@ -1,0 +1,203 @@
+=== shape / dtypes ===
+(4320, 15)
+listing_id                object
+property_id               object
+sold_date                 object
+sqft                     float64
+bedrooms                   int64
+bathrooms                  int64
+year_built                 int64
+lot_size_sqft            float64
+neighborhood              object
+distance_to_center_km    float64
+condition                 object
+garage                    object
+tax_assessed_value       float64
+price                    float64
+price_per_sqft           float64
+dtype: object
+
+=== missing values ===
+listing_id                 0
+property_id                0
+sold_date                  0
+sqft                       0
+bedrooms                   0
+bathrooms                  0
+year_built                 0
+lot_size_sqft            865
+neighborhood               0
+distance_to_center_km      0
+condition                  0
+garage                    60
+tax_assessed_value         0
+price                      0
+price_per_sqft             0
+dtype: int64
+
+=== duplicate property_id (repeat sales) ===
+rows: 4320 unique property_id: 4000 unique listing_id: 4320
+count
+1    3680
+2     320
+Name: count, dtype: int64
+     listing_id property_id   sold_date    sqft  bedrooms  bathrooms  year_built  lot_size_sqft neighborhood  distance_to_center_km  condition garage  tax_assessed_value     price  price_per_sqft
+3301    L002196     P002196  2021-04-06  3622.0         6          4        1909            NaN          N03                    7.0       Good    Yes            153500.0  259300.0           71.59
+3445    L004049     P002196  2023-02-22  3622.0         6          4        1909            NaN          N03                    7.0       Good    Yes            153500.0  253500.0           69.99
+3444    L002764     P002764  2021-05-21  1957.0         3          2        1992         5084.0          N01                    3.5  Very Good     No             81900.0  105000.0           53.65
+4014    L004219     P002764  2022-02-08  1957.0         3          2        1992         5084.0          N01                    3.5  Very Good     No             81900.0  109200.0           55.80
+233     L003187     P003187  2022-10-20  1690.0         3          2        1930            NaN          N16                    6.3  Very Good    Yes            138300.0  125400.0           74.20
+3257    L004116     P003187  2023-12-18  1690.0         3          2        1930            NaN          N16                    6.3  Very Good    Yes            138300.0  130300.0           77.10
+
+=== garage raw values ===
+garage
+Yes    2658
+No     1133
+Y       131
+YES     127
+yes     126
+NaN      60
+N        45
+no       40
+Name: count, dtype: int64
+
+=== condition values ===
+condition
+Good         1893
+Very Good    1122
+Fair          667
+Excellent     419
+Poor          219
+Name: count, dtype: int64
+
+=== neighborhood cardinality ===
+30 levels
+neighborhood
+N00    931
+N01    493
+N02    325
+N03    261
+N04    234
+N05    208
+N07    158
+N06    157
+N09    146
+N08    116
+N10    107
+N14     96
+N11     89
+N15     84
+N13     82
+N16     75
+N12     73
+N25     71
+N17     70
+N18     62
+N20     59
+N19     57
+N21     54
+N23     53
+N26     48
+N24     47
+N29     44
+N22     42
+N28     40
+N27     38
+Name: count, dtype: int64
+
+=== price_per_sqft vs price/sqft (leakage check) ===
+count    4320.000000
+mean        4.707697
+std       118.804503
+min         0.000000
+25%         0.001241
+50%         0.002500
+75%         0.003733
+max      4992.560000
+dtype: float64
+
+=== target: price ===
+count      4320.000000
+mean     111257.407407
+std       53624.817500
+min       22400.000000
+25%       72800.000000
+50%       99300.000000
+75%      137400.000000
+max      588900.000000
+Name: price, dtype: float64
+skew: 1.5909831696191503
+
+=== sold_date range ===
+2021-01-01 2024-12-30
+
+=== numeric summary ===
+                sqft     bedrooms    bathrooms   year_built  lot_size_sqft  distance_to_center_km  tax_assessed_value          price
+count    4320.000000  4320.000000  4320.000000  4320.000000    3455.000000            4320.000000         4320.000000    4320.000000
+mean     2214.962731     3.181481     1.955787  1961.216435    6777.320695               9.622315        93563.865741  111257.407407
+std      5419.271872     1.268504     0.864595    36.738769    3627.050524               6.242068        44544.211486   53624.817500
+min        50.000000     1.000000     1.000000  1800.000000     940.000000               0.700000        21400.000000   22400.000000
+25%      1435.750000     2.000000     1.000000  1930.000000    4298.000000               5.400000        61600.000000   72800.000000
+50%      1811.000000     3.000000     2.000000  1960.000000    5944.000000               8.100000        83700.000000   99300.000000
+75%      2283.500000     4.000000     2.000000  1992.000000    8336.500000              12.000000       115200.000000  137400.000000
+max    100000.000000     6.000000     4.000000  2090.000000   33020.000000              75.100000       441900.000000  588900.000000
+
+=== sqft outliers (sentinel check) ===
+3889    100000.0
+3979    100000.0
+3449    100000.0
+4172    100000.0
+83      100000.0
+579     100000.0
+4088    100000.0
+835     100000.0
+3831    100000.0
+2069    100000.0
+4190    100000.0
+3096    100000.0
+503     100000.0
+626       7824.0
+4195      5672.0
+rows with sqft==100000: 13
+          sqft  bedrooms  bathrooms     price  tax_assessed_value
+83    100000.0         3          2   77300.0             89200.0
+503   100000.0         2          1   67100.0             67200.0
+579   100000.0         3          2  126400.0            103400.0
+835   100000.0         1          1   30200.0             26800.0
+2069  100000.0         5          3  129400.0            105100.0
+3096  100000.0         3          2  160800.0            112400.0
+3449  100000.0         6          3  198600.0            244700.0
+3831  100000.0         2          1   85900.0             88300.0
+3889  100000.0         5          3  121500.0            120500.0
+3979  100000.0         3          2   88500.0            100100.0
+4088  100000.0         1          1   30900.0             26800.0
+4172  100000.0         3          2  182500.0            155100.0
+4190  100000.0         4          3  141300.0            117000.0
+
+=== year_built outliers (sentinel check) ===
+unique low values: [np.int64(1800), np.int64(1900), np.int64(1901), np.int64(1902), np.int64(1903)]
+unique high values: [np.int64(2020), np.int64(2021), np.int64(2022), np.int64(2023), np.int64(2090)]
+rows year_built==1800: 9
+rows year_built==2090: 13
+
+=== correlation with price (raw numeric) ===
+price                    1.000000
+tax_assessed_value       0.938378
+bedrooms                 0.641392
+bathrooms                0.556385
+year_built               0.148787
+sqft                     0.093394
+lot_size_sqft            0.090523
+distance_to_center_km   -0.114529
+Name: price, dtype: float64
+
+=== tax_assessed_value / price ratio (is it a leaky duplicate of price?) ===
+count    4320.000000
+mean        0.852804
+std         0.131916
+min         0.500000
+25%         0.761108
+50%         0.844321
+75%         0.933448
+max         1.492308
+dtype: float64

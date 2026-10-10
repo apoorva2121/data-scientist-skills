@@ -1,0 +1,34 @@
+Final model class: LogisticRegression
+Background dataset has 200 samples but max_samples=100. Subsampling to 100 samples for SHAP value computation. To use all samples, set max_samples=200 when initializing the masker.
+
+Top 15 features by mean |SHAP|:
+                             feature  mean_abs_shap  direction_corr(+feature -> +risk if positive)
+                  num__tenure_months       0.359800                                           -1.0
+              num__support_calls_90d       0.297189                                            1.0
+   cat__contract_type_month-to-month       0.274739                                            1.0
+         cat__contract_type_one year       0.177611                                           -1.0
+                num__monthly_charges       0.166874                                            1.0
+         cat__contract_type_two year       0.110859                                           -1.0
+cat__payment_method_Electronic check       0.068260                                            1.0
+   cat__payment_method_Bank transfer       0.068140                                           -1.0
+    cat__payment_method_Mailed check       0.063064                                           -1.0
+     cat__payment_method_Credit card       0.051119                                           -1.0
+                            num__age       0.038997                                           -1.0
+                  num__total_charges       0.032052                                            1.0
+                     cat__region_R03       0.028386                                           -1.0
+                     cat__region_R12       0.023446                                           -1.0
+                     cat__region_R07       0.020901                                            1.0
+
+Saved SHAP summary plot to C:\dev\important repo\Data Scientist Skill Set\data-scientist-workspace\iteration-1\eval-churn-leakage-imbalance\without_skill\outputs\shap_summary.png
+
+Permutation importance (raw, pre-encoding features), drop in test PR-AUC when shuffled:
+           feature  perm_importance_mean_drop_in_pr_auc  perm_importance_std
+     contract_type                             0.071860             0.015624
+ support_calls_90d                             0.064886             0.009144
+     tenure_months                             0.053909             0.015975
+            region                             0.004979             0.007030
+     total_charges                             0.000602             0.002617
+               age                            -0.000182             0.003034
+avg_daily_usage_mb                            -0.000364             0.001778
+    payment_method                            -0.002438             0.009025
+   monthly_charges                            -0.002836             0.011872

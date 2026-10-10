@@ -1,0 +1,18 @@
+n=4320, n_groups(properties)=4000, n_features=17
+GroupKFold, n_splits=5
+
+LinearRegression      RMSE=    20523  MAE=   12696  MAPE=0.1141  R2=0.8535  (0.4s)
+RandomForest          RMSE=    18738  MAE=   13361  MAPE=0.1214  R2=0.8779  (12.3s)
+LightGBM              RMSE=    17930  MAE=   12639  MAPE=0.1146  R2=0.8882  (56.0s)
+XGBoost               RMSE=    17666  MAE=   12466  MAPE=0.1129  R2=0.8914  (37.2s)
+CatBoost              RMSE=    18029  MAE=   12647  MAPE=0.1148  R2=0.8869  (26.5s)
+
+=== Summary (sorted by RMSE, out-of-fold, group-aware CV) ===
+           model         RMSE          MAE     MAPE       R2  fit_seconds_total
+         XGBoost 17666.195444 12465.566702 0.112917 0.891444          37.183511
+        LightGBM 17930.063973 12639.315482 0.114634 0.888177          56.044021
+        CatBoost 18028.939604 12647.156440 0.114844 0.886940          26.523291
+    RandomForest 18738.317036 13361.048811 0.121435 0.877868          12.314709
+LinearRegression 20522.816741 12695.777257 0.114136 0.853498           0.429178
+
+Saved model_comparison_results.csv

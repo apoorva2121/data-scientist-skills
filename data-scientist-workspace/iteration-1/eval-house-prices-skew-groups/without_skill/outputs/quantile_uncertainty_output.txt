@@ -1,0 +1,22 @@
+train n=2588 (2400 properties)
+cal   n=863 (800 properties)
+test  n=869 (800 properties)
+
+Fitting 7 quantile models (XGBoost, reg:quantileerror)...
+
+=== Point estimate (median, q50) on held-out TEST split ===
+RMSE=17517  MAE=12642  MAPE=0.1192  R2=0.8804
+
+=== Interval calibration (held-out TEST split) ===
+nominal=90%  raw: cov=0.895 width=$57,350   CQR: margin=$1,104 cov=0.916 width=$59,558
+nominal=80%  raw: cov=0.762 width=$38,520   CQR: margin=$858 cov=0.795 width=$40,235
+nominal=50%  raw: cov=0.449 width=$19,029   CQR: margin=$135 cov=0.456 width=$19,298
+
+=== 80% CQR interval coverage by price tercile (TEST split) ===
+           n        price_range  coverage     avg_width
+tercile                                                
+low      290    $25,900-$77,700  0.772414  26656.217039
+mid      289   $77,800-$116,900  0.871972  38957.652857
+high     290  $117,300-$394,300  0.741379  55088.052344
+
+Saved interval_calibration_results.csv, coverage_by_price_tercile.csv, test_predictions_with_intervals.csv

@@ -1,0 +1,4 @@
+step,rows_affected,rows_remaining
+drop exact duplicate rows,4,2077
+"check residual (store,week) duplicates after dedup",0,2077
+sales == -1.0 sentinel -> NaN,5,2077

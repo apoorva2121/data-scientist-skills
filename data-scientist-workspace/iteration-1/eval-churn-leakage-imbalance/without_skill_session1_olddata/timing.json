@@ -1,0 +1,6 @@
+{
+  "total_tokens": 113097,
+  "duration_ms": 994509,
+  "total_duration_seconds": 994.5,
+  "note": "interim: agent paused while its model-comparison script was still running in the background"
+}

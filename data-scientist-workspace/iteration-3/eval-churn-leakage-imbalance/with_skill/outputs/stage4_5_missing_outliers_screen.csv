@@ -1,0 +1,6 @@
+name,mean,sd,diff_vs_best,se_corrected,n_pairs,keep,within_noise_floor
+linear__median_indicator__none,0.2103,0.0358,0.0,0.0,5,True,True
+linear__median_indicator__winsorize,0.2077,0.0332,-0.0026,0.0038,5,True,True
+gbdt__median_indicator__none,0.1692,0.0378,-0.041,0.041,5,False,False
+gbdt__native_nan__none,0.1564,0.0278,-0.0538,0.0239,5,False,False
+gbdt__native_nan__winsorize,0.1538,0.0363,-0.0564,0.0283,5,False,False

@@ -1,0 +1,10 @@
+column,univariate_auc,verdict,recorded_when
+churn_reason,1.0,leak,at/after cancellation (reason is only ever filled for churners)
+account_status_code,0.9954,leak,"current account state, updated to 'C' at cancellation - i.e. after the outcome"
+support_calls_90d,0.5924,legit,"ongoing account/usage attribute, available before any churn decision"
+monthly_charges,0.5719,legit,"ongoing account/usage attribute, available before any churn decision"
+last_invoice_amount,0.5681,legit (assumed),"ASSUMED: most recent billed invoice, known at scoring time (same cadence as monthly_charges); open risk if instead a final closing invoice"
+avg_daily_usage_mb,0.5026,legit,"ongoing account/usage attribute, available before any churn decision"
+age,0.4904,legit,"ongoing account/usage attribute, available before any churn decision"
+total_charges,0.4344,legit,"ongoing account/usage attribute, available before any churn decision"
+tenure_months,0.3886,legit,"ongoing account/usage attribute, available before any churn decision"

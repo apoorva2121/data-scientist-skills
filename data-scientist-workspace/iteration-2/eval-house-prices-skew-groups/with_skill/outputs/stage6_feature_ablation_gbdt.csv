@@ -1,0 +1,3 @@
+name,mean,sd,diff_vs_best,se_corrected,n_pairs,keep,within_noise_floor
+plus_engineered,-12397.0831,337.8073,0.0,0.0,5,True,True
+base_cols,-12407.5829,367.9203,-10.4998,47.6288,5,True,True

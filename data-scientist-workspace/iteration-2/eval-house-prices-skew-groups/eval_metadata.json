@@ -1,0 +1,20 @@
+{
+  "eval_id": 1,
+  "eval_name": "eval-house-prices-skew-groups",
+  "prompt": "Here's a file of past house sales: evals/datasets/house_prices.csv. We're building a pricing tool for new listings and need a model that estimates the sale price, plus some idea of how far off it might be for each estimate. Find the best approach and explain your choices.",
+  "assertions": [
+    {"id": "leak_column_excluded", "text": "price_per_sqft is identified as derived from the target and excluded from features"},
+    {"id": "group_split_property", "text": "Repeat sales of the same property_id are kept on one side of every split (GroupKFold / group-aware holdout) or deduplicated with a stated reason"},
+    {"id": "time_drift_handled", "text": "Price drift over sold_date is acknowledged and handled by a time-aware split, a time feature, or both, with reasoning"},
+    {"id": "target_skew_handled", "text": "The right-skewed target is handled (log transform, Box-Cox, or a robust/quantile loss) and predictions are back-transformed to price units before reporting MAE"},
+    {"id": "garage_condition_cleaned", "text": "garage codings (Yes/Y/yes/YES, No/N/no/blank) are normalised and condition is treated as ordered"},
+    {"id": "impossible_values_handled", "text": "year_built values of 1800/2090 and sqft values of 50/100000 are detected and handled with a stated reason"},
+    {"id": "imputation_in_fold", "text": "lot_size_sqft imputation is fitted inside the CV folds or pipeline, not on the full data"},
+    {"id": "intervals_with_coverage", "text": "Per-estimate uncertainty is produced (quantile regression, conformal, or bootstrap) and its empirical coverage on held-out data is reported"},
+    {"id": "mae_vs_baseline", "text": "MAE on held-out data is reported alongside a baseline (median price, or price by neighborhood mean) using the same metric"},
+    {"id": "candidates_compared_with_spread", "text": "At least two model families are compared under the same CV scheme with fold-to-fold spread reported"},
+    {"id": "tax_timing_questioned", "text": "The report asks when tax_assessed_value is recorded relative to the sale and states the assumption under which it is kept as a feature"},
+    {"id": "decision_log_reasoning", "text": "For each major stage the report states what was applied and why, and what was considered but skipped and why"},
+    {"id": "no_leak_signature", "text": "Held-out R-squared is below 0.99 and MAPE is above 8%, consistent with the 12% irreducible noise; a near-perfect fit indicates the leak was used"}
+  ]
+}

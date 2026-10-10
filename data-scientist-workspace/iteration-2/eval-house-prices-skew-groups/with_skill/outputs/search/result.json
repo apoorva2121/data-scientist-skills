@@ -1,0 +1,41 @@
+{
+  "n_trials": 25,
+  "elapsed_s": 26.1,
+  "results": {
+    "pick": {
+      "family": "ridge",
+      "params": {
+        "family": "ridge",
+        "n_estimators": NaN,
+        "num_leaves": NaN,
+        "lr": NaN,
+        "min_child": NaN,
+        "alpha": 0.011544608204846152,
+        "outlier": "winsorize"
+      },
+      "cv_mean_mae": 12562.155850007646,
+      "cv_sd_mae": 596.5604089511332,
+      "holdout_mae": 12331.257383893864,
+      "holdout_se": 454.1403909891852
+    },
+    "best_by_mean": {
+      "family": "lightgbm",
+      "params": {
+        "family": "lightgbm",
+        "n_estimators": 250.0,
+        "num_leaves": 21.0,
+        "lr": 0.12137116655869534,
+        "min_child": 43.0,
+        "alpha": NaN,
+        "outlier": NaN
+      },
+      "cv_mean_mae": 12107.834606652143,
+      "cv_sd_mae": 592.6227115314147,
+      "holdout_mae": 13003.018564493732,
+      "holdout_se": 520.5915370464583
+    }
+  },
+  "holdout_gap_check": "OK (within ~2 SE of CV mean)",
+  "pick_trial": 11,
+  "best_by_mean_trial": 24
+}

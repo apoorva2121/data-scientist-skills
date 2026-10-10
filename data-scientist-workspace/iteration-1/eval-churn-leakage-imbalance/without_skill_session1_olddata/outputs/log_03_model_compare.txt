@@ -1,0 +1,10 @@
+﻿rows: 6150 -> 6000 after dedupe; churn rate 0.0867 (520 churners)
+train 4800 (416 pos) / test 1200 (104 pos)
+
+=== HONEST features (leak columns removed) : 2x5 stratified CV on train ===
+baseline_prior       AUC 0.500+-0.000  PR-AUC 0.087+-0.000  prec@10 0.101+-0.028  rec@10 0.117  lift 1.17  brier 0.0792   [1s]
+logreg               AUC 0.699+-0.040  PR-AUC 0.197+-0.028  prec@10 0.225+-0.025  rec@10 0.260  lift 2.60  brier 0.2159   [2s]
+random_forest        AUC 0.674+-0.033  PR-AUC 0.161+-0.020  prec@10 0.188+-0.028  rec@10 0.216  lift 2.16  brier 0.0994   [36s]
+hist_gbdt            AUC 0.642+-0.031  PR-AUC 0.143+-0.018  prec@10 0.161+-0.035  rec@10 0.186  lift 1.86  brier 0.0812   [190s]
+lightgbm             AUC 0.650+-0.028  PR-AUC 0.152+-0.020  prec@10 0.161+-0.024  rec@10 0.186  lift 1.86  brier 0.0800   [212s]
+lightgbm_weighted    AUC 0.645+-0.026  PR-AUC 0.146+-0.015  prec@10 0.164+-0.021  rec@10 0.189  lift 1.89  brier 0.1329   [272s]

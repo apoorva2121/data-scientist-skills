@@ -1,0 +1,17 @@
+{
+  "holdout_wape": 0.13745522121407633,
+  "test_mase_pick": 0.9922760160789886,
+  "test_wape_pick": 0.12156378639204377,
+  "test_mase_seasonal_naive": 1.142497144057824,
+  "test_wape_seasonal_naive": 0.15036726829843325,
+  "test_mase_naive_last": 1.2520680616382802,
+  "test_wape_naive_last": 0.15475117858139825,
+  "test_mase_ci95": [
+    0.7966111417796395,
+    1.2293400525295466
+  ],
+  "test_wape_ci95": [
+    0.10043447164120217,
+    0.14833469179668707
+  ]
+}

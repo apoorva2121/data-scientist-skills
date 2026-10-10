@@ -1,0 +1,14 @@
+feature,group,inputs,transformation,available_at_prediction,fitted_in_fold,families
+sqft,base,sqft,none,"yes: property record, known before listing",n/a,all
+bedrooms/bathrooms,base,"bedrooms,bathrooms",none,yes: property record,n/a,all
+year_built,base,year_built,none,yes: property record,n/a,all
+lot_size_sqft,base,lot_size_sqft,winsorize p01/p99 (linear only),yes: property record,yes (Winsorizer),all
+neighborhood,base,neighborhood,one-hot,yes: property record,yes (OneHotEncoder),all
+distance_to_center_km,base,distance_to_center_km,winsorize p01/p99 (linear only),yes: property record,yes (Winsorizer),all
+condition,base,condition,one-hot (ordinal-aware category order kept),yes (ASSUMED: set at listing/inspection),yes,all
+garage,base,garage,one-hot,yes: property record,yes,all
+tax_assessed_value,base,tax_assessed_value,none,"yes: public tax record, assessed before listing",n/a,all
+house_age,engineered,"sold_date,year_built",sold_year - year_built,yes: both inputs known before/at listing (sold_date = listing/close date),no (stateless),all
+total_rooms,engineered,"bedrooms,bathrooms",sum,yes,no (stateless),all
+sold_year/sold_month,engineered,sold_date,calendar parts,yes: the listing tool sets the intended sale/valuation date,no (stateless),all
+price_per_sqft,dropped,"price,sqft",ratio,NO - post-sale only,n/a,none (dropped Stage 3)

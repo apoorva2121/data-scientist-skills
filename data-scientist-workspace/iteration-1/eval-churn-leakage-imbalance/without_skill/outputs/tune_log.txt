@@ -1,0 +1,39 @@
+--- tuning logistic_regression (15 trials x 3-fold CV) ---
+logistic_regression: best tuned 3-fold CV PR-AUC = 0.2079  params={'C': 0.02382491316318909, 'penalty': 'l2'}  (3.8s)
+--- tuning random_forest (15 trials x 3-fold CV) ---
+random_forest: best tuned 3-fold CV PR-AUC = 0.1833  params={'n_estimators': 100, 'max_depth': 4, 'min_samples_leaf': 28, 'max_features': 0.6656618323926515}  (226.4s)
+--- tuning lightgbm (15 trials x 3-fold CV) ---
+lightgbm: best tuned 3-fold CV PR-AUC = 0.1895  params={'n_estimators': 150, 'num_leaves': 23, 'max_depth': 6, 'learning_rate': 0.015252697030515175, 'min_child_samples': 82, 'reg_alpha': 4.6876566400928895e-08, 'reg_lambda': 7.620481786158549, 'subsample': 0.8861223846483287, 'colsample_bytree': 0.5993578407670862}  (19.3s)
+--- tuning xgboost (15 trials x 3-fold CV) ---
+xgboost: best tuned 3-fold CV PR-AUC = 0.1850  params={'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.011450964268326641, 'min_child_weight': 7, 'reg_alpha': 3.148441347423712e-05, 'reg_lambda': 2.7678419414850017e-06, 'subsample': 0.9143687545759647, 'colsample_bytree': 0.6783766633467947}  (54.6s)
+
+Selected final family: logistic_regression (tuned CV PR-AUC=0.2079)
+
+=== FINAL HELD-OUT TEST METRICS ===
+{
+  "final_model_family": "logistic_regression",
+  "final_model_params": {
+    "C": 0.02382491316318909,
+    "penalty": "l2"
+  },
+  "n_train": 4800,
+  "n_test": 1200,
+  "test_churn_rate": 0.08666666666666667,
+  "test_roc_auc": 0.7200396546883774,
+  "test_pr_auc": 0.2168562747822319,
+  "test_brier_score": 0.22536738664490097,
+  "k_frac": 0.1,
+  "k_customers_in_test": 120,
+  "test_precision_at_10pct": 0.25833333333333336,
+  "test_recall_at_10pct_capture_rate": 0.2980769230769231,
+  "test_lift_at_10pct": 2.980769230769231,
+  "score_threshold_for_top_10pct": 0.6927953569159083,
+  "confusion_matrix_at_top10pct_threshold": {
+    "tn": 1007,
+    "fp": 89,
+    "fn": 73,
+    "tp": 31
+  }
+}
+
+Saved plots to C:\dev\important repo\Data Scientist Skill Set\data-scientist-workspace\iteration-1\eval-churn-leakage-imbalance\without_skill\outputs\evaluation_plots.png

@@ -1,0 +1,6 @@
+name,mean,sd,diff_vs_best,se_corrected,n_pairs,keep
+logreg,0.2154,0.0387,0.0,0.0,5,True
+catboost,0.16,0.0375,-0.0554,0.0246,5,False
+lightgbm,0.1405,0.029,-0.0749,0.027,5,False
+xgboost,0.1342,0.0323,-0.0812,0.0275,5,False
+hist_gbm,0.1252,0.0209,-0.0902,0.0226,5,False

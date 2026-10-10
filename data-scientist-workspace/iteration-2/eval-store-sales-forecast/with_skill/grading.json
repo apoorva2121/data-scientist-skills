@@ -1,0 +1,26 @@
+{
+  "run": "with_skill iteration-2 (sonnet)",
+  "graded_by": "inline, from outputs/decision_log.md, report.md, forecast.csv and the agent summary",
+  "expectations": [
+    {"text": "leak_inventory_excluded", "passed": true, "evidence": "leak_table.csv: inventory_end classified as a same-period leak and excluded"},
+    {"text": "sentinel_sales_handled", "passed": true, "evidence": "5 sales = -1 -> NaN, interpolated inside history"},
+    {"text": "duplicate_keys_removed", "passed": true, "evidence": "4 exact duplicate rows removed"},
+    {"text": "gaps_handled", "passed": true, "evidence": "gap_report.csv: S03 missing 3 calendar weeks; panel regularised with ts_backtest.regularize"},
+    {"text": "structural_breaks_noted", "passed": true, "evidence": "S19 intermittent identified and discussed; S07 appears only as a next-worst store, its level shift not identified"},
+    {"text": "rolling_origin_backtest", "passed": true, "evidence": "6 rolling origins on the train part (ts_backtest), 8-week horizon; locked holdout; test scored once"},
+    {"text": "seasonal_naive_baseline", "passed": true, "evidence": "seasonal naive and naive-last scored on the same origins and on test"},
+    {"text": "scale_free_metric", "passed": true, "evidence": "MASE, WAPE, sMAPE overall, by horizon and by store"},
+    {"text": "known_future_covariates", "passed": false, "evidence": "promo and holiday used as known-future in training, but forecast.csv was produced with holiday=0 placeholders although holidays are calendar-determined and the horizon starts in ISO week 1 (a holiday week); the no-skill run recomputed them from the calendar. avg_temp_c correctly replaced by a per-store week-of-year climatology"},
+    {"text": "forecast_file_complete", "passed": true, "evidence": "160 rows, 20 stores x 8 weeks, non-negative, q10/q90 bounds"},
+    {"text": "candidates_compared", "passed": true, "evidence": "3 candidates on 6 origins with spread across origins; LightGBM MASE 0.875 vs 1.195 beyond both spreads"},
+    {"text": "decision_log_reasoning", "passed": true, "evidence": "decision_log.md with considered / skipped reasons, every time-budget cut logged"}
+  ],
+  "summary": {"passed": 11, "total": 12, "pass_rate": 0.917},
+  "other_observations": [
+    "Real duration 9.7 min (583 s) and 160k tokens, but the run believed it had used the full 25 min and cut the bundled audit and leak-screen scripts, adversarial validation and the tuning search. The time rule needs a real clock.",
+    "Test WAPE 0.093 vs seasonal naive about 0.15-0.17 on the same frozen test weeks (~40% better). Not directly comparable with the no-skill run's backtest WAPE 8.6%.",
+    "Found a real bug: ts_backtest.backtest() computes h but does not pass it to the forecaster.",
+    "Stage 10 partial: no serialized pipeline or monitoring plan.",
+    "Interval bounds (q10/q90) produced; coverage not reported in the summary."
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "eval_id": 2,
+  "eval_name": "eval-store-sales-forecast",
+  "prompt": "evals/datasets/store_sales.csv has weekly sales for 20 stores for about 2 years. Inventory planning needs an 8-week-ahead forecast per store. Build the best forecasting approach you can and tell me how accurate to expect it to be.",
+  "assertions": [
+    {"id": "leak_inventory_excluded", "text": "inventory_end is never used for the week being forecast; if used at all, only values at or before the forecast origin are used, and the report explains why that is available at forecast time"},
+    {"id": "sentinel_sales_handled", "text": "The five -1 sales values are treated as missing or invalid, not as real sales"},
+    {"id": "duplicate_keys_removed", "text": "Duplicate (store_id, week_start) rows are detected and removed"},
+    {"id": "gaps_handled", "text": "The missing weeks for S03 are detected and the series is reindexed to a regular weekly grid before modelling"},
+    {"id": "structural_breaks_noted", "text": "The S07 level shift and/or the intermittent S19 series are detected and handled or explicitly discussed"},
+    {"id": "rolling_origin_backtest", "text": "Accuracy is estimated with a time-ordered backtest (rolling or expanding origin) using an 8-week horizon; no shuffled K-fold is used on the time series"},
+    {"id": "seasonal_naive_baseline", "text": "A seasonal naive (lag-52) or last-value baseline is reported with the same metric as the final approach"},
+    {"id": "scale_free_metric", "text": "A scale-free metric (MASE, sMAPE, WAPE, or RMSSE) is reported, overall and ideally by horizon or by store"},
+    {"id": "known_future_covariates", "text": "promo and holiday_week are used as known-future covariates, or the report explains why not; avg_temp_c is not treated as known in the future without comment"},
+    {"id": "forecast_file_complete", "text": "forecast.csv contains 20 stores x 8 future weeks with non-negative values"},
+    {"id": "candidates_compared", "text": "At least two forecasting approaches are compared in the backtest with spread across origins reported"},
+    {"id": "decision_log_reasoning", "text": "For each major stage the report states what was applied and why, and what was considered but skipped and why"}
+  ]
+}

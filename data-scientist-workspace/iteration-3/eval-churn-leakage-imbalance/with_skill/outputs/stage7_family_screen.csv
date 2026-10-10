@@ -1,0 +1,4 @@
+name,mean,sd,diff_vs_best,se_corrected,n_pairs,keep,within_noise_floor
+linear,0.2077,0.0332,0.0,0.0,5,True,True
+catboost,0.1679,0.0322,-0.0397,0.0162,5,False,False
+lightgbm,0.1564,0.0278,-0.0513,0.0219,5,False,False

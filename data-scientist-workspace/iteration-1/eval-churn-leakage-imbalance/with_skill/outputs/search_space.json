@@ -1,0 +1,196 @@
+{
+  "cv": {
+    "scheme": "StratifiedKFold-on-fixed-folds",
+    "n_splits": 5,
+    "seed": 42,
+    "note": "folds loaded from split/split.csv via cv_folds.load_split; noise floor measured with RepeatedStratifiedKFold(5x5) on train only"
+  },
+  "primary_metric": "average_precision",
+  "deployment_metric": "precision_at_10pct / recall_at_10pct",
+  "noise_floor_sd": {
+    "fold_sd": 0.042,
+    "repeat_sd": 0.0056
+  },
+  "noise_floor_basis": "simple LogisticRegression on 7 numeric + 3 categorical honest features, median/most-frequent impute, PR-AUC",
+  "adversarial_validation_auc_train_vs_test": 0.4936,
+  "fixed_steps": [
+    "drop 150 exact duplicate rows",
+    "total_charges: -999 -> NaN",
+    "age: {0, 250} -> NaN",
+    "contract_type: canonicalize spelling/case/whitespace to 3 levels",
+    "drop churn_reason, account_status_code from features (presumed leak, confirmed Stage 3)"
+  ],
+  "stages": {
+    "missing_values": [
+      {
+        "name": "median_no_indicator",
+        "applies_to": [
+          "linear",
+          "gbdt"
+        ],
+        "proxy_scores": {
+          "linear": [
+            0.188,
+            0.0247
+          ],
+          "gbdt": [
+            0.1382,
+            0.0204
+          ]
+        }
+      },
+      {
+        "name": "median_indicator_informative_only",
+        "applies_to": [
+          "linear",
+          "gbdt"
+        ],
+        "proxy_scores": {
+          "linear": [
+            0.1895,
+            0.0258
+          ],
+          "gbdt": [
+            0.131,
+            0.0172
+          ]
+        }
+      },
+      {
+        "name": "native_nan",
+        "applies_to": [
+          "gbdt"
+        ],
+        "proxy_scores": {
+          "gbdt": [
+            0.1277,
+            0.0187
+          ]
+        }
+      }
+    ],
+    "outliers": [
+      {
+        "name": "none",
+        "applies_to": [
+          "linear",
+          "gbdt"
+        ],
+        "proxy_scores": {
+          "linear": [
+            0.1864,
+            0.0235
+          ],
+          "gbdt": [
+            0.1277,
+            0.0187
+          ]
+        }
+      },
+      {
+        "name": "log1p_usage",
+        "applies_to": [
+          "linear"
+        ],
+        "proxy_scores": {
+          "linear": [
+            0.1871,
+            0.023
+          ]
+        }
+      }
+    ],
+    "features": [
+      {
+        "name": "final_8_features_no_region_no_lastinvoice",
+        "applies_to": [
+          "linear",
+          "gbdt"
+        ],
+        "columns": [
+          "tenure_months",
+          "monthly_charges",
+          "total_charges",
+          "support_calls_90d",
+          "avg_daily_usage_mb",
+          "age",
+          "contract_type",
+          "payment_method"
+        ],
+        "proxy_scores": {
+          "linear": [
+            0.1896,
+            0.0273
+          ],
+          "gbdt": [
+            0.1417,
+            0.0291
+          ]
+        },
+        "note": "region and last_invoice_amount dropped on Stage 6 ablation evidence; 3 engineered features (interaction, frequent_caller, residual) dropped, no gain beyond noise"
+      }
+    ],
+    "models": [
+      {
+        "name": "logreg",
+        "family": "linear",
+        "mean_prauc": 0.2154,
+        "sd": 0.0387,
+        "keep": true,
+        "reason": "best family by a wide, noise-floor-clearing margin over dummy and shallow tree; near-converged learning curve (train~0.21, val 0.156->0.215)"
+      },
+      {
+        "name": "catboost",
+        "family": "gbdt",
+        "mean_prauc": 0.16,
+        "sd": 0.0375,
+        "keep": true,
+        "reason": "best of the 4 boosted trees screened (vs lightgbm 0.1405, xgboost 0.1342, hist_gbm 0.1252) despite scoring below logreg's automated tolerance; learning curve shows severe overfitting at default settings (train PR-AUC 0.94-1.00 vs val 0.13-0.16), i.e. variance-limited not signal-limited - carried into the Stage 8 tuned search on the judgment that regularization (depth, l2_leaf_reg, iterations) may close some of the gap; a manual override of the automatic screen, logged here as required by Non-negotiable #3"
+      },
+      {
+        "name": "lightgbm",
+        "family": "gbdt",
+        "mean_prauc": 0.1405,
+        "sd": 0.029,
+        "keep": false,
+        "reason": "dominated by catboost among trees; dropped to keep the Stage 8 search space small given the 60-trial/10-minute compute cap"
+      },
+      {
+        "name": "xgboost",
+        "family": "gbdt",
+        "mean_prauc": 0.1342,
+        "sd": 0.0323,
+        "keep": false,
+        "reason": "dominated by catboost among trees; same reason as lightgbm"
+      },
+      {
+        "name": "hist_gbm",
+        "family": "gbdt",
+        "mean_prauc": 0.1252,
+        "sd": 0.0209,
+        "keep": false,
+        "reason": "weakest of the boosted trees screened, and slowest in this environment (44.6s/5-fold vs 8-15s for the others)"
+      }
+    ],
+    "encoding": [
+      {
+        "name": "onehot_contract_payment_drop_region",
+        "applies_to": [
+          "linear",
+          "gbdt"
+        ]
+      }
+    ]
+  },
+  "imbalance_handling": "class_weight balanced / scale_pos_weight (SMOTE screened, no gain - see imbalance_screen.csv)",
+  "baselines": {
+    "trivial_dummy_prauc": 0.0867,
+    "business_rule_prauc": 0.1775,
+    "business_rule_precision_at_10": 0.1897,
+    "business_rule_recall_at_10": 0.2191,
+    "shallow_tree_prauc": 0.1445,
+    "simple_logreg_prauc": 0.2154,
+    "simple_logreg_precision_at_10": 0.2513,
+    "simple_logreg_recall_at_10": 0.2899
+  }
+}

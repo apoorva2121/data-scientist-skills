@@ -1,0 +1,25 @@
+{
+  "task": "multi-series weekly forecasting, horizon=8 weeks, target=sales per store",
+  "n_series": 20,
+  "n_weeks": 104,
+  "leak_columns": [
+    "inventory_end for the week being forecast (it is a function of that week's sales). Using inventory_end at or before the forecast origin is legitimate."
+  ],
+  "future_known_covariates": [
+    "promo",
+    "holiday_week"
+  ],
+  "unknown_future_covariate": "avg_temp_c (would need its own forecast or a climatology)",
+  "gaps": "S03 is missing weeks 2023-06-05, 2023-06-12, 2024-02-19",
+  "sentinel_values": {
+    "sales": -1,
+    "count": 5
+  },
+  "duplicate_keys": 4,
+  "level_shift": "S07 x1.5 from week index 60 (2024-02-26) onward",
+  "intermittent_series": "S19 (mostly zeros)",
+  "seasonality": "yearly (52-week), trend, promo +25%, holiday +15%",
+  "required_validation": "rolling-origin / time-based backtest with 8-week horizon; random K-fold is wrong",
+  "sensible_baselines": "seasonal naive (lag 52), last value, moving average",
+  "business_constraint": "inventory planning; per-store 8-week forecast with an accuracy statement"
+}

@@ -1,0 +1,23 @@
+{
+  "metric": "precision@0.10",
+  "pick": "T22:linear:outliers=none,missing_values=median_indicator,encoding=onehot",
+  "best_by_mean": "T22:linear:outliers=none,missing_values=median_indicator,encoding=onehot",
+  "pick_params": {
+    "family": "linear",
+    "outliers|linear": "none",
+    "missing_values|linear": "median_indicator",
+    "encoding|linear": "onehot",
+    "linear_C": 0.010074528943967254
+  },
+  "pick_choices": {
+    "outliers": "none",
+    "missing_values": "median_indicator",
+    "encoding": "onehot"
+  },
+  "cv_mean_pick": 0.2385,
+  "holdout": {
+    "T22:linear:outliers=none,missing_values=median_indicator,encoding=onehot": 0.26666666666666666
+  },
+  "noise_floor_sd": 0.0133,
+  "n_trials": 30
+}
